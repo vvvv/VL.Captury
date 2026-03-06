@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
 using System.Threading;
-using UnityEngine;
-using UnityEngine.UI;
 using System.Net;
-using TMPro;
 
 namespace Captury
 {
@@ -22,7 +19,7 @@ namespace Captury
 		public Vector3 offset;
 		public Vector3 orientation;
 		public Vector3 scale;
-		public Transform transform;
+		public Matrix transform;
 		public Quaternion originalRotation;
 	}
 
@@ -47,119 +44,139 @@ namespace Captury
 
 		// reference to game object that gets animated
 		// set it with setTargetSkeleton()
-		public GameObject Target
-		{
-			get { return targetSkeleton; }
-		}
+		//public GameObject Target
+		//{
+		//	get { return targetSkeleton; }
+		//}
 
 		// reference to game object that the motion is applied to directly
 		// set it with setReferenceSkeleton()
-		public GameObject Reference
-		{
-			get { return referenceSkeleton; }
-		}
+		//public GameObject Reference
+		//{
+		//	get { return referenceSkeleton; }
+		//}
 
-		// public bool isLeftFootOnGround = false;
-		// public bool isRightFootOnGround = false;
+		public bool isLeftFootOnGround = false;
+		public bool isRightFootOnGround = false;
 
 		// note: CapturySkeleton takes ownership of the passed skeleton and destroys it when it is destroyed
-		public void SetReferenceSkeleton(GameObject refSkel, Avatar avatar, float backLen)
-		{
-			if (referenceSkeleton != null) {
-				networkPlugin.LogWarning("CapturySkeleton.setReferenceSkeleton() can only be called once");
-				return;
-			}
+		//		public void SetReferenceSkeleton(GameObject refSkel, Avatar avatar, float backLen)
+		//		{
+		//			if (referenceSkeleton != null)
+		//			{
+		//				networkPlugin.LogWarning("CapturySkeleton.setReferenceSkeleton() can only be called once");
+		//				return;
+		//			}
 
-			referenceSkeleton = refSkel;
-			referenceName = referenceSkeleton.name;
+		//			referenceSkeleton = refSkel;
+		//			referenceName = referenceSkeleton.name;
 
-			poseGetter = new HumanPoseHandler(avatar, refSkel.transform);
-			foreach (CapturySkeletonJoint j in joints) {
-				// check if the joint name matches a reference transform and assign it
-				ArrayList children = referenceSkeleton.transform.GetAllChildren();
-				foreach (Transform tra in children) {
-					if (tra.name.EndsWith(j.name)) {
-						j.transform = tra;
-						j.originalRotation = tra.rotation;
-						continue;
-					}
-				}
-			}
+		//			poseGetter = new HumanPoseHandler(avatar, refSkel.transform);
+		//			foreach (CapturySkeletonJoint j in joints)
+		//			{
+		//				// check if the joint name matches a reference transform and assign it
+		//				ArrayList children = referenceSkeleton.transform.GetAllChildren();
+		//				foreach (Transform tra in children)
+		//				{
+		//					if (tra.name.EndsWith(j.name))
+		//					{
+		//						j.transform = tra;
+		//						j.originalRotation = tra.rotation;
+		//						continue;
+		//					}
+		//				}
+		//			}
 
-			lock (this) {
-				streamedBackLength = backLen;
+		//			lock (this)
+		//			{
+		//				streamedBackLength = backLen;
 
-				if (targetSkeleton && targetBackLength > 0.0f && streamedBackLength > 0.0f) {
-					float scale = streamedBackLength / targetBackLength;
-					networkPlugin.Log("Captury: SCALING2 avatar " + id + " by " + scale, refSkel);
-					targetSkeleton.transform.localScale = new Vector3(scale, scale, scale);
-				}
-			}
-		}
+		//				if (targetSkeleton && targetBackLength > 0.0f && streamedBackLength > 0.0f)
+		//				{
+		//					float scale = streamedBackLength / targetBackLength;
+		//					networkPlugin.Log("Captury: SCALING2 avatar " + id + " by " + scale, refSkel);
+		//					targetSkeleton.transform.localScale = new Vector3(scale, scale, scale);
+		//				}
+		//			}
+		//		}
 
-		public void SetTargetSkeleton(GameObject targetSkel, Avatar avatar, float avatarBackLength)
-		{
-			targetSkeleton = targetSkel;
-			if (targetSkeleton == null) {
-				targetName = "";
-				return;
-			}
-			targetName = targetSkeleton.name;
+		//		public void SetTargetSkeleton(GameObject targetSkel, Avatar avatar, float avatarBackLength)
+		//		{
+		//			targetSkeleton = targetSkel;
+		//			if (targetSkeleton == null)
+		//			{
+		//				targetName = "";
+		//				return;
+		//			}
+		//			targetName = targetSkeleton.name;
 
-			if (joints.Length == 1) { // rigid object
-				joints[0].transform = targetSkeleton.transform;
-				return;
-			}
+		//			if (joints.Length == 1)
+		//			{ // rigid object
+		//				joints[0].transform = targetSkeleton.transform;
+		//				return;
+		//			}
 
-			// scale skeleton to size of actor
-			lock (this) {
-				targetBackLength = avatarBackLength;
-				if (targetSkeleton) {
-					if (targetBackLength > 0.0f && streamedBackLength > 0.0f) {
-						float scale = streamedBackLength / targetBackLength;
-						networkPlugin.Log("Captury: SCALING1 avatar " + id + " by " + scale, targetSkel);
-						targetSkeleton.transform.localScale = new Vector3(scale, scale, scale);
-					} else {
-						networkPlugin.Log("Captury: NOT SCALING avatar " + id + " streamed " + streamedBackLength + " avatar " + avatarBackLength, targetSkel);
-					}
+		//			// scale skeleton to size of actor
+		//			lock (this)
+		//			{
+		//				targetBackLength = avatarBackLength;
+		//				if (targetSkeleton)
+		//				{
+		//					if (targetBackLength > 0.0f && streamedBackLength > 0.0f)
+		//					{
+		//						float scale = streamedBackLength / targetBackLength;
+		//						networkPlugin.Log("Captury: SCALING1 avatar " + id + " by " + scale, targetSkel);
+		//						targetSkeleton.transform.localScale = new Vector3(scale, scale, scale);
+		//					}
+		//					else
+		//					{
+		//						networkPlugin.Log("Captury: NOT SCALING avatar " + id + " streamed " + streamedBackLength + " avatar " + avatarBackLength, targetSkel);
+		//					}
 
-					try {
-						poseSetter = new HumanPoseHandler(avatar, targetSkeleton.transform);
-					} catch {
-						networkPlugin.LogError("Captury: the assigned target avatar is not valid. Please make sure the avatar passed to CapturyNetworkPlugin.setTargetSkeleton() is a valid humanoid avatar.", targetSkel);
-#if UNITY_EDITOR
-						UnityEditor.EditorApplication.isPlaying = false;
-#endif
-					}
-				}
-			}
-		}
+		//					try
+		//					{
+		//						poseSetter = new HumanPoseHandler(avatar, targetSkeleton.transform);
+		//					}
+		//					catch
+		//					{
+		//						networkPlugin.LogError("Captury: the assigned target avatar is not valid. Please make sure the avatar passed to CapturyNetworkPlugin.setTargetSkeleton() is a valid humanoid avatar.", targetSkel);
+		//#if UNITY_EDITOR
+		//						UnityEditor.EditorApplication.isPlaying = false;
+		//#endif
+		//					}
+		//				}
+		//			}
+		//		}
 
-		// the pose has been set on the referenceSkeleton already
-		// now apply it on the target skeleton
-		public void UpdatePose()
-		{
-			if (targetSkeleton == null || referenceSkeleton == null || poseGetter == null || poseSetter == null)
-				return;
+		//the pose has been set on the referenceSkeleton already
+		//now apply it on the target skeleton
+		//public void UpdatePose()
+		//{
+		//	if (targetSkeleton == null || referenceSkeleton == null || poseGetter == null || poseSetter == null)
+		//		return;
 
-			HumanPose pose = new HumanPose();
-			poseGetter.GetHumanPose(ref pose);
-			poseSetter.SetHumanPose(ref pose);
+		//	HumanPose pose = new HumanPose();
+		//	poseGetter.GetHumanPose(ref pose);
+		//	poseSetter.SetHumanPose(ref pose);
 
-			if (blendShapeActivations.Length != 0) {
-				SkinnedMeshRenderer[] renderers = targetSkeleton.GetComponentsInChildren<SkinnedMeshRenderer>();
-				foreach (SkinnedMeshRenderer renderer in renderers) {
-					for (int i = 0; i < Math.Min(blendShapeActivations.Length, renderer.sharedMesh.blendShapeCount); ++i)
-						renderer.SetBlendShapeWeight(i, blendShapeActivations[i] * 100);
-				}
-			}
-		}
+		//	if (blendShapeActivations.Length != 0)
+		//	{
+		//		SkinnedMeshRenderer[] renderers = targetSkeleton.GetComponentsInChildren<SkinnedMeshRenderer>();
+		//		foreach (SkinnedMeshRenderer renderer in renderers)
+		//		{
+		//			for (int i = 0; i < Math.Min(blendShapeActivations.Length, renderer.sharedMesh.blendShapeCount); ++i)
+		//				renderer.SetBlendShapeWeight(i, blendShapeActivations[i] * 100);
+		//		}
+		//	}
+		//}
 
 		public void UpdateAngles(CapturyAngleData[] angleData)
 		{
 			const float RAD2DEGf = 57.29577951308232088f;
-			lock (angles) {
-				foreach (CapturyAngleData angle in angleData) {
+			lock (angles)
+			{
+				foreach (CapturyAngleData angle in angleData)
+				{
 					angles[(CapturyNetworkPlugin.PhysiologicalAngleType)angle.type] = angle.value * RAD2DEGf;
 				}
 			}
@@ -167,22 +184,23 @@ namespace Captury
 
 		public void Deactivate()
 		{
-			Debug.LogWarning($"CapturySkeleton.Deactivate(id {id}), preparing to removing a skeleton!");
+			//Debug.LogWarning($"CapturySkeleton.Deactivate(id {id}), preparing to removing a skeleton!");
 			//referenceSkeleton.SetActive(false);
-			referenceSkeletonsToDestroy.Enqueue(referenceSkeleton);
-			//lock (referenceSkeletonsToDestroy) {
-			//	referenceSkeletonsToDestroy.Add(referenceSkeleton);
-			//}
-			referenceSkeleton = null;
+			//referenceSkeletonsToDestroy.Enqueue(referenceSkeleton);
+			////lock (referenceSkeletonsToDestroy) {
+			////	referenceSkeletonsToDestroy.Add(referenceSkeleton);
+			////}
+			//referenceSkeleton = null;
 		}
 
 		public static void Cleanup()
 		{
 			//lock (referenceSkeletonsToDestroy) {
-			while (referenceSkeletonsToDestroy.TryDequeue(out var skel)) {
-				Debug.LogWarning($"CapturySkeleton.Cleanup(), removing a referenceSkeleton!");
-				if (skel != null)
-					UnityEngine.Object.Destroy(skel);
+			//while (referenceSkeletonsToDestroy.TryDequeue(out var skel))
+			{
+				//Debug.LogWarning($"CapturySkeleton.Cleanup(), removing a referenceSkeleton!");
+				//if (skel != null)
+				//	UnityEngine.Object.Destroy(skel);
 			}
 			//foreach (GameObject skel in referenceSkeletonsToDestroy)
 			//	UnityEngine.Object.Destroy(skel);
@@ -192,7 +210,7 @@ namespace Captury
 
 		~CapturySkeleton()
 		{
-			Debug.LogWarning($"~CapturySkeleton(id {id}) (destructor)");
+			//Debug.LogWarning($"~CapturySkeleton(id {id}) (destructor)");
 			//if (referenceSkeleton) {
 			//    //lock (referenceSkeletonsToDestroy) {
 			//    //referenceSkeleton.SetActive(false);
@@ -201,17 +219,17 @@ namespace Captury
 			//}
 		}
 
-		private static readonly ConcurrentQueue<GameObject> referenceSkeletonsToDestroy = new ConcurrentQueue<GameObject>();
+		//private static readonly ConcurrentQueue<GameObject> referenceSkeletonsToDestroy = new ConcurrentQueue<GameObject>();
 
-		private GameObject referenceSkeleton = null; // the reference skeleton
+		//private GameObject referenceSkeleton = null; // the reference skeleton
 		public String referenceName;
-		private HumanPoseHandler poseGetter;
-		private GameObject targetSkeleton = null; // the target skeleton
+		//private HumanPoseHandler poseGetter;
+		//private GameObject targetSkeleton = null; // the target skeleton
 		public String targetName;
-		private HumanPoseHandler poseSetter;
+		//private HumanPoseHandler poseSetter;
 	}
 
-	[Serializable]
+	//[Serializable]
 	public class CapturyMarkerTransform
 	{
 		public Quaternion rotation;
@@ -303,7 +321,7 @@ namespace Captury
 	}
 
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	struct CapturyCamera
+	unsafe struct CapturyCamera
 	{
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
 		public byte[] name;
@@ -321,19 +339,10 @@ namespace Captury
 		public float lensCenterY;   // in mm
 		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
 		public byte[] distortionModel;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 30)]
-		public float distortion;
-
-		// the following can be computed from the above values and are provided for convenience only
-		// the matrices are stored column wise:
-		// 0  3  6  9
-		// 1  4  7 10
-		// 2  5  8 11
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 12)]
-		readonly float extrinsic;
-		[MarshalAs(UnmanagedType.ByValArray, SizeConst = 9)]
-		readonly float intrinsic;
-	};
+        public fixed float distortion[30];
+        public fixed float extrinsic[12];
+        public fixed float intrinsic[9];
+    };
 
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public struct CapturyLatencyInfo
@@ -356,7 +365,7 @@ namespace Captury
 	//====================
 	// the network plugin
 	//====================
-	public class CapturyNetworkPlugin : MonoBehaviour
+	public class CapturyNetworkPlugin
 	{
 		public static CapturyNetworkPlugin Instance;
 		enum ActorStatus { ACTOR_SCALING = 0, ACTOR_TRACKING = 1, ACTOR_STOPPED = 2, ACTOR_DELETED = 3, ACTOR_UNKNOWN = 4 };
@@ -524,7 +533,7 @@ namespace Captury
 		public int actorCheckTimeout = 500; // in ms
 		public bool streamARTags = false;
 		public bool usePoseCompression = false;
-		public PhysiologicalAngleType[] angles;
+		public PhysiologicalAngleType[] angles = new PhysiologicalAngleType[0];
 
 		private IntPtr remoteCaptury = IntPtr.Zero;
 
@@ -533,8 +542,8 @@ namespace Captury
 		public event SkeletonDelegate SkeletonFound;
 		public event SkeletonDelegate SkeletonLost;
 		public event SkeletonDelegate ScalingProgressChanged;
-		public delegate void CamerasChangedDelegate(GameObject[] cameras);
-		public event CamerasChangedDelegate CamerasChanged;
+		//public delegate void CamerasChangedDelegate(GameObject[] cameras);
+		//public event CamerasChangedDelegate CamerasChanged;
 		public delegate void ARTagsDetectedDelegate(ARTag[] artags);
 		public event ARTagsDetectedDelegate ARTagsDetected;
 
@@ -543,27 +552,27 @@ namespace Captury
 
 		public event SkeletonDelegate AngleUpdateReceived;
 
-		private Vector3[] cameraPositions;
-		private Quaternion[] cameraOrientations;
-		private float[] cameraFieldOfViews;
-		public GameObject[] cameras;
+		public Vector3[] cameraPositions;
+        public Quaternion[] cameraOrientations;
+        public float[] cameraFieldOfViews;
+		//public GameObject[] cameras;
 
 		public ARTag[] arTags = new ARTag[0];
 
-		public TextMeshProUGUI log;
-		public TextMeshProUGUI statusText;
+		//public TextMeshProUGUI log;
+		//public TextMeshProUGUI statusText;
 		private String asyncLog = "";
 
-		public GameObject streamedSkeleton; // this is used to set CapturySkeleton.setReferenceSkeleton()
-		public Avatar streamedAvatar;
+		//public GameObject streamedSkeleton; // this is used to set CapturySkeleton.setReferenceSkeleton()
+		//public Avatar streamedAvatar;
 		public String streamedSkeletonLeftHip = "LeftUpLeg";
 		public String streamedSkeletonHead = "Head";
 
 		/// <summary>
 		/// set the offset in world coordinates by moving the object the
 		/// </summary>
-		private Vector3 worldPosition = Vector3.zero;
-		private Quaternion worldRotation = Quaternion.identity;
+		private Vector3 worldPosition = Vector3.Zero;
+		private Quaternion worldRotation = Quaternion.Identity;
 
 		// threading data for communication with server
 		private Thread communicationThread;
@@ -572,7 +581,7 @@ namespace Captury
 
 		// skeleton data from Captury
 		private readonly Dictionary<int, int> actorFound = new Dictionary<int, int>();
-		private readonly Dictionary<int, CapturySkeleton> skeletons = new Dictionary<int, CapturySkeleton>();
+		public readonly Dictionary<int, CapturySkeleton> skeletons = new Dictionary<int, CapturySkeleton>();
 		private readonly Dictionary<string, int> jointsWithConstraints = new Dictionary<string, int>();
 
 		// for debugging latency
@@ -593,7 +602,7 @@ namespace Captury
 		public Dictionary<int, Timestamps> timestampsForPoses = new Dictionary<int, Timestamps>();
 		private IntPtr latencyBuffer = IntPtr.Zero;
 
-		[Tooltip("Freeze the current positions, for debug purposes")]
+		//[Tooltip("Freeze the current positions, for debug purposes")]
 		[System.NonSerialized]
 		public bool freezeAvatars = false;
 
@@ -607,12 +616,12 @@ namespace Captury
 			return host;
 		}
 
-		public void Disconnect()
-		{
-			Debug.Log("Captury: disconnecting...");
-			Captury_disconnect(remoteCaptury);
-			Debug.Log("Captury: disconnected");
-		}
+		//public void Disconnect()
+		//{
+		//	Debug.Log("Captury: disconnecting...");
+		//	Captury_disconnect(remoteCaptury);
+		//	Debug.Log("Captury: disconnected");
+		//}
 
 		public ConnectionStatus GetConnectionStatus()
 		{
@@ -620,56 +629,56 @@ namespace Captury
 			return (ConnectionStatus)status;
 		}
 
-		public void SetHost(string ip)
-		{
-			Debug.Log($"CapturyNetworkPlugin: setting host IP to {ip}");
-			// parse the string ip to be valid
+		//public void SetHost(string ip)
+		//{
+		//	Debug.Log($"CapturyNetworkPlugin: setting host IP to {ip}");
+		//	// parse the string ip to be valid
 
-			// ip string must be of length 4
-			string[] ipParts = ip.Split('.');
-			if (ipParts.Length != 4) {
-				Debug.Log("Invalid IP address");
-				return;
-			}
+		//	// ip string must be of length 4
+		//	string[] ipParts = ip.Split('.');
+		//	if (ipParts.Length != 4) {
+		//		Debug.Log("Invalid IP address");
+		//		return;
+		//	}
 
-			// each split must be a number
-			foreach (string part in ipParts) {
-				int num;
-				if (!int.TryParse(part, out num)) {
-					Debug.Log("Invalid IP address");
-					return;
-				}
-			}
-			// set the ip address
-			host = ip;
+		//	// each split must be a number
+		//	foreach (string part in ipParts) {
+		//		int num;
+		//		if (!int.TryParse(part, out num)) {
+		//			Debug.Log("Invalid IP address");
+		//			return;
+		//		}
+		//	}
+		//	// set the ip address
+		//	host = ip;
 
-			Debug.Log($"Captury: connecting to {host}:{port}...");
-			Captury_connect2(remoteCaptury, host, port, 0, 21010, 1/*async*/, convertToIP4(localIP), convertToIP4(multicastIP));
+		//	Debug.Log($"Captury: connecting to {host}:{port}...");
+		//	Captury_connect2(remoteCaptury, host, port, 0, 21010, 1/*async*/, convertToIP4(localIP), convertToIP4(multicastIP));
 
-			Debug.Log("Captury: host set to " + host);
-		}
+		//	Debug.Log("Captury: host set to " + host);
+		//}
 
-		void Awake()
-		{
-			Log("Captury: Awake");
-			mainThread = System.Threading.Thread.CurrentThread;
-			// try to set retargeter if available
-			CapturySkeleton.networkPlugin = this;
-			if (CapturyNetworkPlugin.Instance == null) {
-				CapturyNetworkPlugin.Instance = this;
-			}
+		//void Awake()
+		//{
+		//	Log("Captury: Awake");
+		//	mainThread = System.Threading.Thread.CurrentThread;
+		//	// try to set retargeter if available
+		//	CapturySkeleton.networkPlugin = this;
+		//	if (CapturyNetworkPlugin.Instance == null) {
+		//		CapturyNetworkPlugin.Instance = this;
+		//	}
 
-			if (streamedAvatar == null || !streamedAvatar.isHuman || !streamedAvatar.isValid)
-				LogError("CapturyNetworkPlugin.streamedAvatar must be set and humanoid.");
-		}
+		//	if (streamedAvatar == null || !streamedAvatar.isHuman || !streamedAvatar.isValid)
+		//		LogError("CapturyNetworkPlugin.streamedAvatar must be set and humanoid.");
+		//}
 
 		//=============================
 		// this is run once at startup
 		//=============================
-		void OnEnable()
+		public void Enable()
 		{
-			worldPosition = transform.position;
-			worldRotation = transform.rotation;
+			//worldPosition = transform.position;
+			//worldRotation = transform.rotation;
 
 			remoteCaptury = Captury_create();
 			Log($"Captury: OnEnable, RemoteCaptury instance: {remoteCaptury}");
@@ -683,22 +692,32 @@ namespace Captury
 				streamWhat |= CapturyStream.LatencyInfo;
 			if (usePoseCompression)
 				streamWhat |= CapturyStream.Compressed;
-			if (angles.Length == 0) {
-				if (Captury_startStreaming(remoteCaptury, (int)streamWhat) == 1) {
+			if (angles.Length == 0)
+			{
+				if (Captury_startStreaming(remoteCaptury, (int)streamWhat) == 1)
+				{
 					Log("Captury: Successfully started streaming data");
-				} else
+				}
+				else
 					LogWarning("Captury: failed to start streaming");
-			} else {
+			}
+			else
+			{
 				IntPtr ptr = Marshal.AllocHGlobal(angles.Length * 2);
 				for (int i = 0; i < angles.Length; ++i)
 					Marshal.WriteInt16(ptr, i * 2, (short)angles[i]);
-				try {
+				try
+				{
 					streamWhat |= CapturyStream.Angles;
-					if (Captury_startStreamingImagesAndAngles(remoteCaptury, (int)streamWhat, -1, angles.Length, ptr) == 1) {
+					if (Captury_startStreamingImagesAndAngles(remoteCaptury, (int)streamWhat, -1, angles.Length, ptr) == 1)
+					{
 						Log("Captury: Successfully started streaming data");
-					} else
+					}
+					else
 						LogWarning("Captury: failed to start streaming");
-				} finally {
+				}
+				finally
+				{
 					Marshal.FreeHGlobal(ptr);
 				}
 			}
@@ -712,124 +731,140 @@ namespace Captury
 		//==========================
 		// this is run once at exit
 		//==========================
-		void OnDisable()
+		public void Disable()
 		{
 			Log($"Captury: disabling network plugin {remoteCaptury}");
 			communicationFinished = true;
 			communicationThread.Join();
-			ClearCameras();
+			//ClearCameras();
 
 			Captury_destroy(remoteCaptury);
 			remoteCaptury = IntPtr.Zero;
 		}
 
-		void ClearCameras()
-		{
-			if (cameras != null) {
-				Debug.LogWarning($"CapturyNetworkPlugin: ClearCameras {cameras.Length} entries");
-				for (int i = cameras.Length - 1; i >= 0; i--) {
-					Destroy(cameras[i]);
-				}
-				cameras = new GameObject[0];
-			}
-		}
+		//void ClearCameras()
+		//{
+		//	if (cameras != null) {
+		//		Debug.LogWarning($"CapturyNetworkPlugin: ClearCameras {cameras.Length} entries");
+		//		for (int i = cameras.Length - 1; i >= 0; i--) {
+		//			Destroy(cameras[i]);
+		//		}
+		//		cameras = new GameObject[0];
+		//	}
+		//}
 
 		//============================
 		// this is run once per frame
 		//============================
-		void Update()
+		public void Update()
 		{
-			switch (GetConnectionStatus()) {
-			case ConnectionStatus.Disconnected:
-				if (statusText)
-					statusText.text = "Disconnected";
-				return;
-			case ConnectionStatus.Connecting:
-				if (statusText)
-					statusText.text = "Connecting";
-				return;
-			case ConnectionStatus.Connected:
-				if (statusText)
-					statusText.text = "Connected";
-				break; // only update when connected
-			}
+			//switch (GetConnectionStatus())
+			//{
+			//	case ConnectionStatus.Disconnected:
+			//		if (statusText)
+			//			statusText.text = "Disconnected";
+			//		return;
+			//	case ConnectionStatus.Connecting:
+			//		if (statusText)
+			//			statusText.text = "Connecting";
+			//		return;
+			//	case ConnectionStatus.Connected:
+			//		if (statusText)
+			//			statusText.text = "Connected";
+			//		break; // only update when connected
+			//}
 
 			LogRemoteCapturyLogs();
 
-			worldPosition = transform.position;
-			worldRotation = transform.rotation;
+			//worldPosition = transform.position;
+			//worldRotation = transform.rotation;
 
 			Int64 before = Captury_getTime(remoteCaptury);
 
 			// make sure we lock access before doing anything
 			//            Log("Captury: Starting pose update...");
 			// Added timeout to prevent indefinite freeze
-			if (!communicationMutex.WaitOne(mutexTimeout)) {
+			if (!communicationMutex.WaitOne(mutexTimeout))
+			{
 				HandleMutexError($"CapturyNetworkPlugin.Update(): Failed to acquire communication mutex within timeout of {mutexTimeout}ms");
 				return;
 			}
-			try {
+			try
+			{
 				// fetch current pose for all skeletons
-				foreach (KeyValuePair<int, CapturySkeleton> kvp in skeletons) {
+				foreach (KeyValuePair<int, CapturySkeleton> kvp in skeletons)
+				{
 					// get the actor id
 					int actorId = kvp.Key;
 
 					// skeleton does not have a reference yet. set it.
-					if (skeletons[actorId].joints.Length == 1) {
-						skeletons[actorId].joints[0].originalRotation = Quaternion.identity;
-					} else if (!skeletons[actorId].Reference) {
-						float lHipY = -1.0f;
-						float headY = -1.0f;
-						float backLen = -1.0f;
-						foreach (CapturySkeletonJoint j in kvp.Value.joints) {
-							if (j.name == streamedSkeletonLeftHip) {
-								lHipY = j.offset.y;
-								for (int i = j.parent; i != -1; i = kvp.Value.joints[i].parent)
-									lHipY += kvp.Value.joints[i].offset.y;
-							} else if (j.name == streamedSkeletonHead) {
-								headY = j.offset.y;
-								for (int i = j.parent; i != -1; i = kvp.Value.joints[i].parent)
-									headY += kvp.Value.joints[i].offset.y;
-							}
-						}
-						backLen = (lHipY != -1.0f && headY != -1.0f) ? (headY - lHipY) * 0.001f : -1.0f;
-						Log("Captury: streamed back length " + backLen);
-						// GameObject refSkel = new GameObject();
-						// Avatar av = CreateAvatar(skeletons[actorId], ref refSkel);
-						// skeletons[actorId].setReferenceSkeleton(refSkel, av, backLen);
-						GameObject refSkel = Instantiate(streamedSkeleton, null);
-						skeletons[actorId].SetReferenceSkeleton(refSkel, streamedAvatar, backLen);
-						refSkel.transform.SetParent(transform);
-						DumpSkeletons();
-						#if DEBUG_VISUALS
-						refSkel.SetActive(true);
-						#endif
+					if (skeletons[actorId].joints.Length == 1)
+					{
+						skeletons[actorId].joints[0].originalRotation = Quaternion.Identity;
 					}
+//					else if (!skeletons[actorId].Reference)
+//					{
+//						float lHipY = -1.0f;
+//						float headY = -1.0f;
+//						float backLen = -1.0f;
+//						foreach (CapturySkeletonJoint j in kvp.Value.joints)
+//						{
+//							if (j.name == streamedSkeletonLeftHip)
+//							{
+//								lHipY = j.offset.Y;
+//								for (int i = j.parent; i != -1; i = kvp.Value.joints[i].parent)
+//									lHipY += kvp.Value.joints[i].offset.Y;
+//							}
+//							else if (j.name == streamedSkeletonHead)
+//							{
+//								headY = j.offset.Y;
+//								for (int i = j.parent; i != -1; i = kvp.Value.joints[i].parent)
+//									headY += kvp.Value.joints[i].offset.Y;
+//							}
+//						}
+//						backLen = (lHipY != -1.0f && headY != -1.0f) ? (headY - lHipY) * 0.001f : -1.0f;
+//						Log("Captury: streamed back length " + backLen);
+//						// GameObject refSkel = new GameObject();
+//						// Avatar av = CreateAvatar(skeletons[actorId], ref refSkel);
+//						// skeletons[actorId].setReferenceSkeleton(refSkel, av, backLen);
+//						GameObject refSkel = Instantiate(streamedSkeleton, null);
+//						skeletons[actorId].SetReferenceSkeleton(refSkel, streamedAvatar, backLen);
+//						refSkel.transform.SetParent(transform);
+//						DumpSkeletons();
+//#if DEBUG_VISUALS
+//						refSkel.SetActive(true);
+//#endif
+//					}
 
 					// get pointer to pose
 					IntPtr poseData = Captury_getCurrentPose(remoteCaptury, actorId);
 
 					// check if we actually got data, if not, continue
-					if (poseData == IntPtr.Zero) {
+					if (poseData == IntPtr.Zero)
+					{
 						// something went wrong, get error message
 						IntPtr msg = Captury_getLastErrorMessage(remoteCaptury);
 						string errmsg = Marshal.PtrToStringAnsi(msg);
 						Log("Captury: Stream error " + actorId + ": " + errmsg);
 						//Captury_freeErrorMessage(msg);
-					} else {
+					}
+					else
+					{
 						// convert the pose
 						CapturyPose pose;
 						pose = (CapturyPose)Marshal.PtrToStructure(poseData, typeof(CapturyPose));
 
 						// store timestamp stats for measuring latency
-						if (measureLatency) {
+						if (measureLatency)
+						{
 							Int64 now = Captury_getTime(remoteCaptury);
 							if (latencyBuffer == IntPtr.Zero)
 								latencyBuffer = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(CapturyLatencyInfo)));
 							Captury_getCurrentLatency(remoteCaptury, latencyBuffer);
 							CapturyLatencyInfo latencyInfo = new CapturyLatencyInfo();
 							latencyInfo = (CapturyLatencyInfo)Marshal.PtrToStructure(latencyBuffer, typeof(CapturyLatencyInfo));
-							if (latencyInfo.timestampOfCorrespondingPose == pose.timestamp) {
+							if (latencyInfo.timestampOfCorrespondingPose == pose.timestamp)
+							{
 								timestampsForPoses[pose.actor] = new Timestamps(pose.timestamp, now, latencyInfo);
 								// Log("Captury: got latency: img: " + (latencyInfo.optimizationStartTime - latencyInfo.firstImagePacketTime) + " opt: " + (latencyInfo.optimizationEndTime - latencyInfo.optimizationStartTime) + " net: " + (latencyInfo.packetReceivedTime - latencyInfo.packetSentTime) + " ->unity: " + (now - latencyInfo.packetReceivedTime) + " total: " + (now - latencyInfo.firstImagePacketTime));
 								Captury_synchronizeTime(remoteCaptury);
@@ -849,11 +884,14 @@ namespace Captury
 						Vector3 pos = new Vector3();
 						Vector3 rot = new Vector3();
 
-						if (!freezeAvatars) {
+						if (!freezeAvatars)
+						{
 							// directly update pose of reference skeleton
-							for (int jointID = 0; jointID < Math.Min(skeletons[actorId].joints.Length, pose.numTransforms); jointID++) {
+							for (int jointID = 0; jointID < Math.Min(skeletons[actorId].joints.Length, pose.numTransforms); jointID++)
+							{
 								// ignore any joints that do not map to a transform
-								if (skeletons[actorId].joints[jointID].transform == null) {
+								if (skeletons[actorId].joints[jointID].transform == null)
+								{
 									//Log("Captury: skipping joint " + jointID + " " + skeletons[actorId].joints[jointID].name);
 									continue;
 								}
@@ -864,21 +902,22 @@ namespace Captury
 
 								// set offset and rotation
 								int baseIndex = jointID * 6;
-								if (jointID == 0) { // only set translation for root joint
-									pos.Set(transforms[baseIndex + 0], transforms[baseIndex + 1], transforms[baseIndex + 2]);
-									skeletons[actorId].joints[jointID].transform.position = ConvertPosition(pos);
+								//if (jointID == 0)
+								{ // only set translation for root joint
+									pos = new Vector3(transforms[baseIndex + 0], transforms[baseIndex + 1], transforms[baseIndex + 2]);
+									skeletons[actorId].joints[jointID].transform.TranslationVector = ConvertPosition(pos);
 								}
-								rot.Set(transforms[baseIndex + 3], transforms[baseIndex + 4], transforms[baseIndex + 5]);
-								skeletons[actorId].joints[jointID].transform.rotation = ConvertRotation(rot) * orig;
+                                rot = new Vector3(transforms[baseIndex + 3], transforms[baseIndex + 4], transforms[baseIndex + 5]);
+								skeletons[actorId].joints[jointID].orientation = rot;// * orig);
 								if (pose.numTransforms > 1)
-									skeletons[actorId].joints[jointID].transform.localScale = skeletons[actorId].joints[jointID].scale;
+									skeletons[actorId].joints[jointID].transform.ScaleVector = skeletons[actorId].joints[jointID].scale;
 								skeletons[actorId].blendShapeActivations = blendShapeActivations;
 							}
 
-							// skeletons[actorId].isLeftFootOnGround  = ((pose.flags & 0x01) != 0);
-							// skeletons[actorId].isRightFootOnGround = ((pose.flags & 0x02) != 0);
+							skeletons[actorId].isLeftFootOnGround = ((pose.flags & 0x01) != 0);
+							skeletons[actorId].isRightFootOnGround = ((pose.flags & 0x02) != 0);
 
-							skeletons[actorId].UpdatePose();
+							//skeletons[actorId].UpdatePose();
 						}
 
 						// trigger event:
@@ -886,14 +925,17 @@ namespace Captury
 							PoseUpdateReceived(pose.actor, pose.timestamp);
 
 						// get angles
-						if (angles.Length != 0) {
+						if (angles.Length != 0)
+						{
 							int numAngles;
 							IntPtr ptr = Captury_getCurrentAngles(remoteCaptury, actorId, out numAngles);
-							if (numAngles != 0) {
+							if (numAngles != 0)
+							{
 								CapturyAngleData[] anglez = new CapturyAngleData[numAngles];
 								int size = Marshal.SizeOf(typeof(CapturyAngleData));
 
-								for (int i = 0; i < numAngles; i++) {
+								for (int i = 0; i < numAngles; i++)
+								{
 									IntPtr dataPtr = new IntPtr(ptr.ToInt64() + size * i);
 									anglez[i] = (CapturyAngleData)Marshal.PtrToStructure(dataPtr, typeof(CapturyAngleData));
 								}
@@ -916,36 +958,42 @@ namespace Captury
 					}
 				}
 
-				if (cameras != null && cameraPositions != null && cameras.Length != cameraPositions.Length) {
-					Debug.LogWarning($"CapturyNetworkPlugin: changing nrCameras from {cameras.Length} to {cameraPositions.Length}");
-					cameras = new GameObject[cameraPositions.Length];
-					for (int i = 0; i < cameraPositions.Length; ++i) {
-						cameras[i] = new GameObject("Camera " + (i + 1));
-						cameras[i].transform.SetParent(transform);
-						cameras[i].AddComponent(typeof(Camera));
-						cameras[i].SetActive(false);
-						cameras[i].transform.SetPositionAndRotation(cameraPositions[i], cameraOrientations[i]);
-						Camera cam = cameras[i].GetComponent(typeof(Camera)) as Camera;
-						cam.fieldOfView = cameraFieldOfViews[i];
-					}
-					// Fire cameras changed event
-					if (CamerasChanged != null)
-						CamerasChanged(cameras);
-				}
+				//if (cameras != null && cameraPositions != null && cameras.Length != cameraPositions.Length)
+				//{
+				//	Debug.LogWarning($"CapturyNetworkPlugin: changing nrCameras from {cameras.Length} to {cameraPositions.Length}");
+				//	cameras = new GameObject[cameraPositions.Length];
+				//	for (int i = 0; i < cameraPositions.Length; ++i)
+				//	{
+				//		cameras[i] = new GameObject("Camera " + (i + 1));
+				//		cameras[i].transform.SetParent(transform);
+				//		cameras[i].AddComponent(typeof(Camera));
+				//		cameras[i].SetActive(false);
+				//		cameras[i].transform.SetPositionAndRotation(cameraPositions[i], cameraOrientations[i]);
+				//		Camera cam = cameras[i].GetComponent(typeof(Camera)) as Camera;
+				//		cam.fieldOfView = cameraFieldOfViews[i];
+				//	}
+				//	// Fire cameras changed event
+				//	if (CamerasChanged != null)
+				//		CamerasChanged(cameras);
+				//}
 
 				// get artags
 				IntPtr arTagData = Captury_getCurrentARTags(remoteCaptury);
 
 				// check if we actually got data, if not, continue
-				if (arTagData == IntPtr.Zero) {
+				if (arTagData == IntPtr.Zero)
+				{
 					// something went wrong, get error message
 					//IntPtr msg = Captury_getLastErrorMessage();
 					//string errmsg = Marshal.PtrToStringAnsi(msg);
 					//Captury_freeErrorMessage(msg);
-				} else {
+				}
+				else
+				{
 					IntPtr at = arTagData;
 					int num;
-					for (num = 0; num < 100; ++num) {
+					for (num = 0; num < 100; ++num)
+					{
 						CapturyARTag arTag = (CapturyARTag)Marshal.PtrToStructure(at, typeof(CapturyARTag));
 						if (arTag.id == -1)
 							break;
@@ -953,7 +1001,7 @@ namespace Captury
 						arTags[num] = new ARTag();
 						arTags[num].id = arTag.id;
 						arTags[num].translation = ConvertPosition(new Vector3(arTag.ox, arTag.oy, arTag.oz));
-						arTags[num].rotation = ConvertRotation(new Vector3(arTag.nx, arTag.ny, arTag.nz)) * Quaternion.Euler(new Vector3(0, 0, 90));
+						arTags[num].rotation = ConvertRotation(new Vector3(arTag.nx, arTag.ny, arTag.nz)); // * Quaternion.Euler(new Vector3(0, 0, 90));
 						at = new IntPtr(at.ToInt64() + Marshal.SizeOf(typeof(CapturyARTag)));
 					}
 					if (num != 0 && ARTagsDetected != null)
@@ -961,18 +1009,23 @@ namespace Captury
 
 					Captury_freeARTags(arTagData);
 				}
-			} catch (Exception e) {
-				Debug.LogError($"CapturyNetworkPlugin: Exception in Update(), while holding mutex! "
-							+ $"This could have lead to a 'freeze'! Msg: {e}");
-			} finally {
+			}
+			catch (Exception e)
+			{
+				//Debug.LogError($"CapturyNetworkPlugin: Exception in Update(), while holding mutex! "
+				//			+ $"This could have lead to a 'freeze'! Msg: {e}");
+			}
+			finally
+			{
 				communicationMutex.ReleaseMutex(); // Always release!
 			}
 
 			CapturySkeleton.Cleanup();
 
-			lock (asyncLog) {
-				if (log)
-					log.text += asyncLog;
+			lock (asyncLog)
+			{
+				//if (log)
+				//	log.text += asyncLog;
 				asyncLog = "";
 			}
 		}
@@ -983,26 +1036,32 @@ namespace Captury
 		//================================================
 		void LookForActors()
 		{
-			try {
+			try
+			{
 
-				while (!communicationFinished) {
+				while (!communicationFinished)
+				{
 					// wait for actorCheckTimeout ms before continuing
 					Thread.Sleep(actorCheckTimeout);
-					if (communicationFinished) { // this might have changed during the sleep!
+					if (communicationFinished)
+					{ // this might have changed during the sleep!
 						LogWarning("Captury: communicationFinished was set while we were sleeping...");
 						break;
 					}
 
 					// try to connect to captury live
-					if (cameraPositions is null) {
+					if (cameraPositions is null)
+					{
 						IntPtr cameraData = IntPtr.Zero;
 						int numCameras = Captury_getCameras(remoteCaptury, out cameraData, 100);
-						if (numCameras > 0 && cameraData != IntPtr.Zero) {
+						if (numCameras > 0 && cameraData != IntPtr.Zero)
+						{
 							cameraPositions = new Vector3[numCameras];
 							cameraOrientations = new Quaternion[numCameras];
 							cameraFieldOfViews = new float[numCameras];
 							int szStruct = Marshal.SizeOf(typeof(CapturyCamera)) + 192; // this offset is here to take care of implicit padding
-							for (uint i = 0; i < numCameras; i++) {
+							for (uint i = 0; i < numCameras; i++)
+							{
 								CapturyCamera camera = new CapturyCamera();
 								camera = (CapturyCamera)Marshal.PtrToStructure(new IntPtr(cameraData.ToInt64() + (szStruct * i)), typeof(CapturyCamera));
 								cameraPositions[i] = ConvertPosition(new Vector3(camera.positionX, camera.positionY, camera.positionZ));
@@ -1015,28 +1074,31 @@ namespace Captury
 					// get actors
 					IntPtr actorData = IntPtr.Zero;
 					int numActors = Captury_getActors(remoteCaptury, out actorData);
-					if (numActors > 0 && actorData != IntPtr.Zero) {
+					if (numActors > 0 && actorData != IntPtr.Zero)
+					{
 						if (numActors != skeletons.Count)
 							Log($"Captury: Received {numActors} actors, we had {skeletons.Count} skeletons already");
 
-						// create actor struct
+						//	 create actor struct
 						int szStruct = Marshal.SizeOf(typeof(CapturyActor)); // implicit padding
-						for (uint i = 0; i < numActors; i++) {
-							// get an actor
-							CapturyActor actor = new CapturyActor();
+						for (uint i = 0; i < numActors; i++)
+						{
+							//get an actor
+						    CapturyActor actor = new CapturyActor();
 							actor = (CapturyActor)Marshal.PtrToStructure(new IntPtr(actorData.ToInt64() + (szStruct * i)), typeof(CapturyActor));
 
 							if (Captury_getActorStatus(remoteCaptury, actor.id) > (int)ActorStatus.ACTOR_TRACKING)
 								continue;
 
-							// check if we already have it in our dictionary
-							if (skeletons.ContainsKey(actor.id)) { // access to actors does not need to be locked here because the other thread is read-only
+							//		 check if we already have it in our dictionary
+							if (skeletons.ContainsKey(actor.id))
+							{ // access to actors does not need to be locked here because the other thread is read-only
 								actorFound[actor.id] = 2;
 								continue;
 							}
 							Log("Captury: Found new actor " + actor.id);
 
-							// no? we need to convert it
+							//		 no? we need to convert it
 							CapturySkeleton skeleton = new CapturySkeleton();
 							if (!ConvertActor(actor, actorData, ref skeleton))
 								continue;
@@ -1044,21 +1106,27 @@ namespace Captury
 							if (SkeletonFound != null)
 								SkeletonFound(skeleton);
 
-							//  and add it to the list of actors we are processing, making sure this is secured by the mutex
-							if (!communicationMutex.WaitOne(mutexTimeout)) {
+							//		  and add it to the list of actors we are processing, making sure this is secured by the mutex
+							if (!communicationMutex.WaitOne(mutexTimeout))
+							{
 								HandleMutexError($"CapturyNetworkPlugin.lookForActors(), adding skeleton {i}/{numActors}: Failed to acquire mutex within {mutexTimeout}ms");
 								continue; // Skip this operation, try again later
 							}
-							try {
+							try
+							{
 								skeletons.Add(actor.id, skeleton);
 								actorFound.Add(actor.id, 2);
-							} catch (Exception e) {
+							}
+							catch (Exception e)
+							{
 								HandleMutexError($"CapturyNetworkPlugin: Exception in Update(), adding skeleton {i}/{numActors}, while holding mutex! "
 																				+ $"This could have lead to a 'freeze'! Msg: {e}");
-							} finally {
+							}
+							finally
+							{
 								communicationMutex.ReleaseMutex(); // always release!
 							}
-							// DumpSkeletons();
+							DumpSkeletons();
 						}
 					}
 
@@ -1073,34 +1141,43 @@ namespace Captury
 					List<CapturySkeleton> skeletonsToNotify = new List<CapturySkeleton>();
 					List<int> unusedKeys = new List<int>();
 
-					if (!communicationMutex.WaitOne(mutexTimeout)) {
+					if (!communicationMutex.WaitOne(mutexTimeout))
+					{
 						HandleMutexError($"CapturyNetworkPlugin.lookForActors(), removing old actors: Failed to acquire mutex within {mutexTimeout}ms");
 						continue; // Skip this operation, try again later
 					}
 
-					try {
-						foreach (KeyValuePair<int, int> kvp in actorFound) {
+					try
+					{
+						foreach (KeyValuePair<int, int> kvp in actorFound)
+						{
 							if (Captury_getActorStatus(remoteCaptury, kvp.Key) <= (int)ActorStatus.ACTOR_TRACKING)
 								continue;
 
-							if (SkeletonLost != null) {
+							if (SkeletonLost != null)
+							{
 								// dumpSkeletons();
 								Log("Captury: lost skeleton " + kvp.Key + ". telling all my friends.");
 								skeletonsToNotify.Add(skeletons[kvp.Key]);
 							}
 
-								// remove actor
+							// remove actor
 							skeletons.Remove(kvp.Key);
 							unusedKeys.Add(kvp.Key);
 						}
-					} catch (Exception e) {
+					}
+					catch (Exception e)
+					{
 						HandleMutexError($"CapturyNetworkPlugin.lookForActors(), removing old actors: exception happened while holding mutex: {e}");
-					} finally {
+					}
+					finally
+					{
 						communicationMutex.ReleaseMutex();
 					}
 
 					// Deactivate and notify outside the mutex to prevent deadlocks
-					foreach (var skeleton in skeletonsToNotify) {
+					foreach (var skeleton in skeletonsToNotify)
+					{
 						if (SkeletonLost != null)
 							SkeletonLost(skeleton);
 						skeleton.Deactivate();
@@ -1110,13 +1187,17 @@ namespace Captury
 					foreach (int key in unusedKeys)
 						actorFound.Remove(key);
 				}
-			} catch (DllNotFoundException e) {
+			}
+			catch (DllNotFoundException e)
+			{
 				LogError("Captury: RemoteCaptury.dll/libRemoteCaptury.so could not be loaded");
 				LogError($"Exception: {e}: {e.Message}");
 #if UNITY_EDITOR
 				UnityEditor.EditorApplication.isPlaying = false;
 #endif
-			} catch (EntryPointNotFoundException ex) {
+			}
+			catch (EntryPointNotFoundException ex)
+			{
 				LogError("Captury: RemoteCaptury.dll/libRemoteCaptury.so does not provide symbol: " + ex.Message);
 #if UNITY_EDITOR
 				UnityEditor.EditorApplication.isPlaying = false;
@@ -1126,111 +1207,113 @@ namespace Captury
 
 		void HandleMutexError(string msg)
 		{
-			Debug.LogError(msg);
+			//Debug.LogError(msg);
 		}
 
-		// if heading > 360 heading is considered unknown
-		public void SnapActor(float x, float z, float radius, float heading = 720, string name = "", SnapMode snapMethod = SnapMode.SNAP_DEFAULT, bool quickScaling = false)
-		{
-			Captury_snapActorEx(remoteCaptury, x, z, radius, heading, name, (int)snapMethod, quickScaling ? 1 : 0);
-		}
+		//	// if heading > 360 heading is considered unknown
+		//	public void SnapActor(float x, float z, float radius, float heading = 720, string name = "", SnapMode snapMethod = SnapMode.SNAP_DEFAULT, bool quickScaling = false)
+		//	{
+		//		Captury_snapActorEx(remoteCaptury, x, z, radius, heading, name, (int)snapMethod, quickScaling ? 1 : 0);
+		//	}
 
-		public void RescaleActor(CapturySkeleton skel)
-		{
-			Captury_rescaleActor(remoteCaptury, skel.id);
-		}
+		//	public void RescaleActor(CapturySkeleton skel)
+		//	{
+		//		Captury_rescaleActor(remoteCaptury, skel.id);
+		//	}
 
-		public void RecolorActor(CapturySkeleton skel)
-		{
-			Captury_recolorActor(remoteCaptury, skel.id);
-		}
+		//	public void RecolorActor(CapturySkeleton skel)
+		//	{
+		//		Captury_recolorActor(remoteCaptury, skel.id);
+		//	}
 
-		public void UpdateActorColors(CapturySkeleton skel)
-		{
-			Captury_updateActorColors(remoteCaptury, skel.id);
-		}
+		//	public void UpdateActorColors(CapturySkeleton skel)
+		//	{
+		//		Captury_updateActorColors(remoteCaptury, skel.id);
+		//	}
 
-		public void StopTracking(CapturySkeleton skel)
-		{
-			Captury_stopTracking(remoteCaptury, skel.id);
-		}
+		//	public void StopTracking(CapturySkeleton skel)
+		//	{
+		//		Captury_stopTracking(remoteCaptury, skel.id);
+		//	}
 
-		public void DeleteActor(CapturySkeleton skel)
-		{
-			Log("Captury: deleting skeleton " + skel.id);
-			Captury_deleteActor(remoteCaptury, skel.id);
-		}
+		//	public void DeleteActor(CapturySkeleton skel)
+		//	{
+		//		Log("Captury: deleting skeleton " + skel.id);
+		//		Captury_deleteActor(remoteCaptury, skel.id);
+		//	}
 
-		public string GetCapturyLiveStatus()
-		{
-			return Marshal.PtrToStringAnsi(Captury_getStatus(remoteCaptury));
-		}
+		//	public string GetCapturyLiveStatus()
+		//	{
+		//		return Marshal.PtrToStringAnsi(Captury_getStatus(remoteCaptury));
+		//	}
 
-		public int getNumCameras()
-		{
-			IntPtr cameraData = IntPtr.Zero;
-			int numCameras = Captury_getCameras(remoteCaptury, out cameraData, 100);
-			return numCameras;
-		}
+		//	public int getNumCameras()
+		//	{
+		//		IntPtr cameraData = IntPtr.Zero;
+		//		int numCameras = Captury_getCameras(remoteCaptury, out cameraData, 100);
+		//		return numCameras;
+		//	}
 
 		public void LogRemoteCapturyLogs()
 		{
-			while (true) {
+			while (true)
+			{
 				IntPtr msg = Captury_getNextLogMessage(remoteCaptury);
 				if (msg == IntPtr.Zero)
 					break;
 
-				Debug.Log("RemoteCaptury: " + Marshal.PtrToStringAnsi(msg));
+				//Debug.Log("RemoteCaptury: " + Marshal.PtrToStringAnsi(msg));
 			}
 		}
 
-		public void SetRotationConstraint(int id, string jointName, Transform t)
-		{
-			if (!communicationMutex.WaitOne(mutexTimeout)) {
-				HandleMutexError($"setRotationConstraint: Failed to acquire communication mutex within {mutexTimeout}ms");
-				return;
-			}
+		//	public void SetRotationConstraint(int id, string jointName, Transform t)
+		//	{
+		//		if (!communicationMutex.WaitOne(mutexTimeout)) {
+		//			HandleMutexError($"setRotationConstraint: Failed to acquire communication mutex within {mutexTimeout}ms");
+		//			return;
+		//		}
 
-			if (!skeletons.ContainsKey(id)) {
-				Log("Cannot set rotation for " + jointName + ": no skeleton with id " + id);
-				communicationMutex.ReleaseMutex();
-				return;
-			}
+		//		if (!skeletons.ContainsKey(id)) {
+		//			Log("Cannot set rotation for " + jointName + ": no skeleton with id " + id);
+		//			communicationMutex.ReleaseMutex();
+		//			return;
+		//		}
 
-			Log("Captury: Set " + jointName + "-rotation to " + t);
-			CapturySkeleton skel = skeletons[id];
-			communicationMutex.ReleaseMutex();
+		//		Log("Captury: Set " + jointName + "-rotation to " + t);
+		//		CapturySkeleton skel = skeletons[id];
+		//		communicationMutex.ReleaseMutex();
 
-			int index;
-			if (jointsWithConstraints.ContainsKey(jointName))
-				index = jointsWithConstraints[jointName];
-			else {
-				index = 0;
-				foreach (CapturySkeletonJoint j in skel.joints) {
-					if (j.name == jointName)
-						break;
-					++index;
-				}
-				if (index == skel.joints.Length) {
-					Log("Cannot set constraint for joint " + jointName + ": no such joint");
-					return;
-				}
-			}
+		//		int index;
+		//		if (jointsWithConstraints.ContainsKey(jointName))
+		//			index = jointsWithConstraints[jointName];
+		//		else {
+		//			index = 0;
+		//			foreach (CapturySkeletonJoint j in skel.joints) {
+		//				if (j.name == jointName)
+		//					break;
+		//				++index;
+		//			}
+		//			if (index == skel.joints.Length) {
+		//				Log("Cannot set constraint for joint " + jointName + ": no such joint");
+		//				return;
+		//			}
+		//		}
 
-			//        CapturySkeletonJoint jnt = skel.joints[index];
-			Vector3 euler = ConvertToEulerAngles(ConvertRotationToLive(t.rotation));
-			IntPtr rotation = Marshal.AllocHGlobal(12);
-			Marshal.StructureToPtr(euler, rotation, false);
-			Captury_setRotationConstraint(remoteCaptury, id, index, rotation, Captury_getTime(remoteCaptury), 1.0f);
-			Marshal.FreeHGlobal(rotation);
-		}
+		//		//        CapturySkeletonJoint jnt = skel.joints[index];
+		//		Vector3 euler = ConvertToEulerAngles(ConvertRotationToLive(t.rotation));
+		//		IntPtr rotation = Marshal.AllocHGlobal(12);
+		//		Marshal.StructureToPtr(euler, rotation, false);
+		//		Captury_setRotationConstraint(remoteCaptury, id, index, rotation, Captury_getTime(remoteCaptury), 1.0f);
+		//		Marshal.FreeHGlobal(rotation);
+		//	}
 
 		//===============================================
 		// helper function to map an actor to a skeleton
 		//===============================================
 		private bool ConvertActor(CapturyActor actor, IntPtr actorData, ref CapturySkeleton skel)
 		{
-			if (skel == null) {
+			if (skel == null)
+			{
 				Log("Captury: Null skeleton reference");
 				return false;
 			}
@@ -1242,7 +1325,8 @@ namespace Captury
 			//skel.rawData = actorData;
 
 			int[] parents = new int[actor.numJoints];
-			if (actor.numJoints == 29) {
+			if (actor.numJoints == 29)
+			{
 				parents[0] = -1; // hips
 				parents[1] = 0; // spine
 				parents[2] = 1; // spine1
@@ -1272,7 +1356,9 @@ namespace Captury
 				parents[26] = 25; // rightfoot
 				parents[27] = 26; // righttoebase
 				parents[28] = 27; // rightfootee
-			} else if (actor.numJoints == 69) {
+			}
+			else if (actor.numJoints == 69)
+			{
 				parents[0] = -1; // hips
 				parents[1] = 0; // spine
 				parents[2] = 1; // spine1
@@ -1346,12 +1432,17 @@ namespace Captury
 				parents[66] = 25; // rightfoot
 				parents[67] = 26; // righttoebase
 				parents[68] = 27; // rightfootee
-			} else if (actor.numJoints == 1) {
+			}
+			else if (actor.numJoints == 1)
+			{
 				parents[0] = -1;
-			} else {
+			}
+			else
+			{
 				LogWarning("Captury: cannot convert full actor. wrong number of joints. expected 1, 29 or 69, have " + actor.numJoints + ". trying my best...");
 				int szStructx = Marshal.SizeOf(typeof(CapturyJoint));
-				for (uint i = 0; i < actor.numJoints; i++) {
+				for (uint i = 0; i < actor.numJoints; i++)
+				{
 					// marshall the joints into a new joint struct
 					CapturyJoint joint = new CapturyJoint();
 					joint = (CapturyJoint)Marshal.PtrToStructure(new IntPtr(actor.joints.ToInt64() + (szStructx * i)), typeof(CapturyJoint));
@@ -1366,27 +1457,30 @@ namespace Captury
 			// create joints
 			int szStruct = Marshal.SizeOf(typeof(CapturyJoint));
 			skel.joints = new CapturySkeletonJoint[actor.numJoints];
-			for (uint i = 0; i < actor.numJoints; i++) {
+			for (uint i = 0; i < actor.numJoints; i++)
+			{
 				// marshall the joints into a new joint struct
 				CapturyJoint joint = new CapturyJoint();
 				joint = (CapturyJoint)Marshal.PtrToStructure(new IntPtr(actor.joints.ToInt64() + (szStruct * i)), typeof(CapturyJoint));
 
 				skel.joints[i] = new CapturySkeletonJoint();
-				skel.joints[i].name = System.Text.Encoding.ASCII.GetString(joint.name);
-				int jpos = skel.joints[i].name.IndexOf("\0");
-				skel.joints[i].name = skel.joints[i].name.Substring(0, jpos);
-				skel.joints[i].offset.Set(joint.ox, joint.oy, joint.oz);
-				skel.joints[i].orientation.Set(joint.rx, joint.ry, joint.rz);
-				skel.joints[i].scale.Set(joint.sx, joint.sy, joint.sz);
+				skel.joints[i].name = System.Text.Encoding.ASCII.GetString(joint.name.TakeWhile(x => x != 0).ToArray());
+				//int jpos = skel.joints[i].name.IndexOf('\0');
+				//skel.joints[i].name = skel.joints[i].name.Substring(0, jpos);
+				skel.joints[i].offset = new Vector3(joint.ox, joint.oy, joint.oz);
+				skel.joints[i].orientation = new Vector3(joint.rx, joint.ry, joint.rz);
+				skel.joints[i].scale = new Vector3(joint.sx, joint.sy, joint.sz);
 				skel.joints[i].parent = parents[i];
 
 				// Log("Captury: Got joint " + skel.joints[i].name + " at " + joint.ox + " " + joint.oy + " " + joint.oz);
 			}
 			// blend shapes
-			if (actor.numBlendShapes != 0) {
+			if (actor.numBlendShapes != 0)
+			{
 				skel.blendShapeNames = new string[actor.numBlendShapes];
 				byte[] byteArray = new byte[64];
-				for (uint i = 0; i < actor.numBlendShapes; i++) {
+				for (uint i = 0; i < actor.numBlendShapes; i++)
+				{
 					Marshal.Copy((IntPtr)(actor.blendShapes.ToInt64() + i * 64), byteArray, 0, 64);
 					skel.blendShapeNames[i] = System.Text.Encoding.ASCII.GetString(byteArray).TrimEnd('\0'); ;
 				}
@@ -1401,117 +1495,118 @@ namespace Captury
 		public void DumpSkeletons()
 		{
 			// debug deleting
-			foreach (KeyValuePair<int, CapturySkeleton> kvp in skeletons) {
+			foreach (KeyValuePair<int, CapturySkeleton> kvp in skeletons)
+			{
 				int actorId = kvp.Key;
 				CapturySkeleton skel = kvp.Value;
-				Log("Captury: skeleton " + actorId + " " + skel.name + " " + (skel.Reference ? (" ref: " + skel.referenceName) : "no reference") + " " + (skel.Target ? (" tgt: " + skel.targetName) : " no target"), skel.Reference);
+				//Log("Captury: skeleton " + actorId + " " + skel.name + " " + (skel.Reference ? (" ref: " + skel.referenceName) : "no reference") + " " + (skel.Target ? (" tgt: " + skel.targetName) : " no target"), skel.Reference);
 			}
 		}
 
-		//===============================================
-		// helper function to map an actor to a skeleton
-		//===============================================
-		private Avatar CreateAvatar(CapturySkeleton skel, ref GameObject root)
-		{
-			if (skel == null) {
-				LogWarning("Captury: Null skeleton reference");
-				return null;
-			}
+		//	//===============================================
+		//	// helper function to map an actor to a skeleton
+		//	//===============================================
+		//	private Avatar CreateAvatar(CapturySkeleton skel, ref GameObject root)
+		//	{
+		//		if (skel == null) {
+		//			LogWarning("Captury: Null skeleton reference");
+		//			return null;
+		//		}
 
-			int numJoints = skel.joints.Length;
+		//		int numJoints = skel.joints.Length;
 
-			HumanDescription desc = new HumanDescription();
-			desc.skeleton = new SkeletonBone[numJoints + 1];
-			desc.human = new HumanBone[numJoints + 1];
-			string[] mecanimNames = HumanTrait.BoneName;
-			// GameObject master = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			GameObject[] hierarchy = new GameObject[numJoints];
+		//		HumanDescription desc = new HumanDescription();
+		//		desc.skeleton = new SkeletonBone[numJoints + 1];
+		//		desc.human = new HumanBone[numJoints + 1];
+		//		string[] mecanimNames = HumanTrait.BoneName;
+		//		// GameObject master = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		//		GameObject[] hierarchy = new GameObject[numJoints];
 
-			string[] mecNames = new string[numJoints];
-			mecNames[0] = "Hips"; // hips
-			mecNames[1] = "Spine"; // spine
-			mecNames[2] = "Chest"; // spine1
-			mecNames[3] = ""; // spine2
-			mecNames[4] = "UpperChest"; // spine3
-			mecNames[5] = ""; // spine4
-			mecNames[6] = "Neck"; // neck
-			mecNames[7] = "Head"; // head
-			mecNames[8] = ""; // headee
-			mecNames[9] = "LeftShoulder"; // leftshoulder
-			mecNames[10] = "LeftUpperArm"; // leftarm
-			mecNames[11] = "LeftLowerArm"; // leftforearm
-			mecNames[12] = "LeftHand"; // lefthand
-			mecNames[13] = ""; // lefthandee
-			mecNames[14] = "RightShoulder"; // rightshoulder
-			mecNames[15] = "RightUpperArm"; // rightarm
-			mecNames[16] = "RightLowerArm"; // rightforearm
-			mecNames[17] = "RightHand"; // righthand
-			mecNames[18] = ""; // righthandee
-			mecNames[19] = "LeftUpperLeg"; // leftupleg
-			mecNames[20] = "LeftLowerLeg"; // leftleg
-			mecNames[21] = "LeftFoot"; // leftfoot
-			mecNames[22] = "LeftToes"; // lefttoebase
-			mecNames[23] = ""; // leftfootee
-			mecNames[24] = "RightUpperLeg"; // rightupleg
-			mecNames[25] = "RightLowerLeg"; // rightleg
-			mecNames[26] = "RightFoot"; // rightfoot
-			mecNames[27] = "RightToes"; // righttoebase
-			mecNames[28] = ""; // rightfootee
+		//		string[] mecNames = new string[numJoints];
+		//		mecNames[0] = "Hips"; // hips
+		//		mecNames[1] = "Spine"; // spine
+		//		mecNames[2] = "Chest"; // spine1
+		//		mecNames[3] = ""; // spine2
+		//		mecNames[4] = "UpperChest"; // spine3
+		//		mecNames[5] = ""; // spine4
+		//		mecNames[6] = "Neck"; // neck
+		//		mecNames[7] = "Head"; // head
+		//		mecNames[8] = ""; // headee
+		//		mecNames[9] = "LeftShoulder"; // leftshoulder
+		//		mecNames[10] = "LeftUpperArm"; // leftarm
+		//		mecNames[11] = "LeftLowerArm"; // leftforearm
+		//		mecNames[12] = "LeftHand"; // lefthand
+		//		mecNames[13] = ""; // lefthandee
+		//		mecNames[14] = "RightShoulder"; // rightshoulder
+		//		mecNames[15] = "RightUpperArm"; // rightarm
+		//		mecNames[16] = "RightLowerArm"; // rightforearm
+		//		mecNames[17] = "RightHand"; // righthand
+		//		mecNames[18] = ""; // righthandee
+		//		mecNames[19] = "LeftUpperLeg"; // leftupleg
+		//		mecNames[20] = "LeftLowerLeg"; // leftleg
+		//		mecNames[21] = "LeftFoot"; // leftfoot
+		//		mecNames[22] = "LeftToes"; // lefttoebase
+		//		mecNames[23] = ""; // leftfootee
+		//		mecNames[24] = "RightUpperLeg"; // rightupleg
+		//		mecNames[25] = "RightLowerLeg"; // rightleg
+		//		mecNames[26] = "RightFoot"; // rightfoot
+		//		mecNames[27] = "RightToes"; // righttoebase
+		//		mecNames[28] = ""; // rightfootee
 
-			root.name = "Root";
+		//		root.name = "Root";
 
-			// create joints
-			for (uint i = 0, n = 1; i < numJoints; i++) {
-				//
-				desc.skeleton[i + 1].name = skel.joints[i].name;
-				desc.skeleton[i + 1].position = skel.joints[i].offset * 0.001f;
-				desc.skeleton[i + 1].rotation = Quaternion.identity;
-				desc.skeleton[i + 1].scale = skel.joints[i].scale;
+		//		// create joints
+		//		for (uint i = 0, n = 1; i < numJoints; i++) {
+		//			//
+		//			desc.skeleton[i + 1].name = skel.joints[i].name;
+		//			desc.skeleton[i + 1].position = skel.joints[i].offset * 0.001f;
+		//			desc.skeleton[i + 1].rotation = Quaternion.identity;
+		//			desc.skeleton[i + 1].scale = skel.joints[i].scale;
 
-				if (mecNames[i].Length != 0) {
-					desc.human[n].boneName = skel.joints[i].name;
-					desc.human[n].humanName = mecNames[i];
-					desc.human[n].limit.useDefaultValues = true;
-					++n;
-				}
+		//			if (mecNames[i].Length != 0) {
+		//				desc.human[n].boneName = skel.joints[i].name;
+		//				desc.human[n].humanName = mecNames[i];
+		//				desc.human[n].limit.useDefaultValues = true;
+		//				++n;
+		//			}
 
-				hierarchy[i] = new GameObject();
-				// hierarchy[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				// hierarchy[i].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-				if (i > 0 && skel.joints[i].parent >= 0)
-					hierarchy[i].transform.SetParent(hierarchy[skel.joints[i].parent].transform);
-				else
-					hierarchy[i].transform.SetParent(root.transform);
-				hierarchy[i].transform.position = hierarchy[i].transform.parent.transform.position + skel.joints[i].offset * 0.001f;
-				hierarchy[i].name = skel.joints[i].name;
+		//			hierarchy[i] = new GameObject();
+		//			// hierarchy[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		//			// hierarchy[i].transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		//			if (i > 0 && skel.joints[i].parent >= 0)
+		//				hierarchy[i].transform.SetParent(hierarchy[skel.joints[i].parent].transform);
+		//			else
+		//				hierarchy[i].transform.SetParent(root.transform);
+		//			hierarchy[i].transform.position = hierarchy[i].transform.parent.transform.position + skel.joints[i].offset * 0.001f;
+		//			hierarchy[i].name = skel.joints[i].name;
 
-				//Log("Captury: Got joint " + skel.joints[i].name + " at " + joint.ox + joint.oy + joint.oz);
-			}
+		//			//Log("Captury: Got joint " + skel.joints[i].name + " at " + joint.ox + joint.oy + joint.oz);
+		//		}
 
-			desc.human[0].boneName = "Root";
-			desc.human[0].humanName = "Root";
-			desc.human[0].limit.useDefaultValues = true;
+		//		desc.human[0].boneName = "Root";
+		//		desc.human[0].humanName = "Root";
+		//		desc.human[0].limit.useDefaultValues = true;
 
-			desc.skeleton[0].name = "Root";
-			desc.skeleton[0].position = Vector3.zero;
-			desc.skeleton[0].rotation = Quaternion.identity;
-			desc.skeleton[0].scale = Vector3.one;
-			// hierarchy[0].transform.SetParent(hierarchy[0].transform);
+		//		desc.skeleton[0].name = "Root";
+		//		desc.skeleton[0].position = Vector3.zero;
+		//		desc.skeleton[0].rotation = Quaternion.identity;
+		//		desc.skeleton[0].scale = Vector3.one;
+		//		// hierarchy[0].transform.SetParent(hierarchy[0].transform);
 
-			Avatar av = AvatarBuilder.BuildHumanAvatar(root, desc);
-			if (av.isValid) {
-				Log("created valid avatar from thin air");
-				return av;
-			} else {
-				Log("Captury: failed to create avatar");
-				return null;
-			}
-		}
+		//		Avatar av = AvatarBuilder.BuildHumanAvatar(root, desc);
+		//		if (av.isValid) {
+		//			Log("created valid avatar from thin air");
+		//			return av;
+		//		} else {
+		//			Log("Captury: failed to create avatar");
+		//			return null;
+		//		}
+		//	}
 
-		public Int64 GetTime()
-		{
-			return (Int64)Captury_getTime(remoteCaptury);
-		}
+		//	public Int64 GetTime()
+		//	{
+		//		return (Int64)Captury_getTime(remoteCaptury);
+		//	}
 
 		public static uint convertToIP4(string ipAddress)
 		{
@@ -1528,171 +1623,182 @@ namespace Captury
 		//========================================================================================================
 		public Vector3 ConvertPosition(Vector3 position)
 		{
-			position.x *= scaleFactor;
-			position.y *= scaleFactor;
-			position.z *= scaleFactor;
-			return worldRotation * new Vector3(position.z, position.y, position.x) + worldPosition;
+			return position; 
+
+			position.X *= scaleFactor;
+			position.Y *= scaleFactor;
+			position.Z *= scaleFactor;
+			return worldRotation * new Vector3(position.Z, position.Y, position.X) + worldPosition;
 		}
 
-		//========================================================================================================
-		// Helper function to convert a position from a left-handed to right-handed coordinate system (both Y-up)
-		//========================================================================================================
-		public Vector3 ConvertPositionToLive(Vector3 position)
-		{
-			position.x /= scaleFactor;
-			position.y /= scaleFactor;
-			position.z /= scaleFactor;
-			return Quaternion.Inverse(worldRotation) * (new Vector3(position.z, position.y, position.x) - worldPosition);
-		}
+		////========================================================================================================
+		//// Helper function to convert a position from a left-handed to right-handed coordinate system (both Y-up)
+		////========================================================================================================
+		//public Vector3 ConvertPositionToLive(Vector3 position)
+		//{
+		//	position.X /= scaleFactor;
+		//	position.Y /= scaleFactor;
+		//	position.Z /= scaleFactor;
+		//	return Quaternion.Inverse(worldRotation) * (new Vector3(position.Z, position.Y, position.X) - worldPosition);
+		//}
 
 		//===========================================================================================================================
 		// Helper function to convert a rotation from a right-handed Captury Live to left-handed Unity coordinate system (both Y-up)
 		//===========================================================================================================================
 		public Quaternion ConvertRotation(Vector3 rotation)
 		{
-			Quaternion qx = Quaternion.AngleAxis(rotation.x, Vector3.back);
-			Quaternion qy = Quaternion.AngleAxis(rotation.y, Vector3.down);
-			Quaternion qz = Quaternion.AngleAxis(rotation.z, Vector3.left);
+			Quaternion qx = Quaternion.RotationAxis(Vector3.UnitZ, rotation.X);
+			Quaternion qy = Quaternion.RotationAxis(Vector3.UnitY, rotation.Y);
+			Quaternion qz = Quaternion.RotationAxis(Vector3.UnitX, rotation.Z);
 			Quaternion qq = qz * qy * qx;
+
+			return qq; 
 			return worldRotation * qq;
 		}
 
-		//===========================================================================================================
-		// Helper function to convert a rotation from Unity back to Captury Live (left-handed to right-handed, Y-up)
-		//===========================================================================================================
-		public static Quaternion ConvertRotationToLive(Quaternion rotation)
-		{
-			Vector3 angles = rotation.eulerAngles;
+		////===========================================================================================================
+		//// Helper function to convert a rotation from Unity back to Captury Live (left-handed to right-handed, Y-up)
+		////===========================================================================================================
+		//public static Quaternion ConvertRotationToLive(Quaternion rotation)
+		//{
+		//	Vector3 angles = rotation.eulerAngles;
 
-			Quaternion qx = Quaternion.AngleAxis(angles.x, Vector3.back);
-			Quaternion qy = Quaternion.AngleAxis(angles.y, Vector3.down);
-			Quaternion qz = Quaternion.AngleAxis(angles.z, Vector3.left);
-			Quaternion qq = qz * qy * qx;
-			return qq;
-		}
+		//	Quaternion qx = Quaternion.AngleAxis(angles.X, Vector3.UnitZ);
+		//	Quaternion qy = Quaternion.AngleAxis(angles.Y, Vector3.UnitY);
+		//	Quaternion qz = Quaternion.AngleAxis(angles.Z, Vector3.UnitX);
+		//	Quaternion qq = qz * qy * qx;
+		//	return qq;
+		//}
 
-		//=============================================================================
-		// Helper function to convert a rotation to the Euler angles Captury Live uses
-		//=============================================================================
-		public static Vector3 ConvertToEulerAngles(Quaternion quat)
-		{
-			const float RAD2DEGf = 57.29577951308232088f;
-			Vector3 euler = new Vector3();
-			float sqw = quat.w * quat.w;
-			float sqx = quat.x * quat.x;
-			float sqy = quat.y * quat.y;
-			float sqz = quat.z * quat.z;
-			float tmp1 = quat.x * quat.y;
-			float tmp2 = quat.w * quat.z;
-			euler[1] = (float)-Math.Asin(Math.Min(Math.Max(2.0 * (quat.x * quat.z - quat.y * quat.w), -1.0f), 1.0f));
-			float C = (float)Math.Cos(euler[1]);
-			if (Math.Abs(C) > 0.005) {
-				euler[2] = (float)Math.Atan2(2.0 * (quat.x * quat.y + quat.z * quat.w) / C, (sqx - sqy - sqz + sqw) / C) * RAD2DEGf;
-				euler[0] = (float)Math.Atan2(2.0 * (quat.y * quat.z + quat.x * quat.w) / C, (-sqx - sqy + sqz + sqw) / C) * RAD2DEGf;
-			} else {
-				euler[2] = 0;
-				if ((tmp1 - tmp2) < 0)
-					euler[0] = (float)Math.Atan2((quat.x * quat.y - quat.z * quat.w) - (quat.y * quat.z - quat.x * quat.w), ((-sqx + sqy - sqz + sqw) + 2.0 * (quat.x * quat.z + quat.y * quat.w)) * 0.5f) * RAD2DEGf;
-				else
-					euler[0] = (float)Math.Atan2((quat.x * quat.y - quat.z * quat.w) + (quat.y * quat.z - quat.x * quat.w), ((-sqx + sqy - sqz + sqw) - 2.0 * (quat.x * quat.z + quat.y * quat.w)) * 0.5f) * RAD2DEGf;
-			}
-			euler[1] *= RAD2DEGf;
+		//	//=============================================================================
+		//	// Helper function to convert a rotation to the Euler angles Captury Live uses
+		//	//=============================================================================
+		//	public static Vector3 ConvertToEulerAngles(Quaternion quat)
+		//	{
+		//		const float RAD2DEGf = 57.29577951308232088f;
+		//		Vector3 euler = new Vector3();
+		//		float sqw = quat.w * quat.w;
+		//		float sqx = quat.x * quat.x;
+		//		float sqy = quat.y * quat.y;
+		//		float sqz = quat.z * quat.z;
+		//		float tmp1 = quat.x * quat.y;
+		//		float tmp2 = quat.w * quat.z;
+		//		euler[1] = (float)-Math.Asin(Math.Min(Math.Max(2.0 * (quat.x * quat.z - quat.y * quat.w), -1.0f), 1.0f));
+		//		float C = (float)Math.Cos(euler[1]);
+		//		if (Math.Abs(C) > 0.005) {
+		//			euler[2] = (float)Math.Atan2(2.0 * (quat.x * quat.y + quat.z * quat.w) / C, (sqx - sqy - sqz + sqw) / C) * RAD2DEGf;
+		//			euler[0] = (float)Math.Atan2(2.0 * (quat.y * quat.z + quat.x * quat.w) / C, (-sqx - sqy + sqz + sqw) / C) * RAD2DEGf;
+		//		} else {
+		//			euler[2] = 0;
+		//			if ((tmp1 - tmp2) < 0)
+		//				euler[0] = (float)Math.Atan2((quat.x * quat.y - quat.z * quat.w) - (quat.y * quat.z - quat.x * quat.w), ((-sqx + sqy - sqz + sqw) + 2.0 * (quat.x * quat.z + quat.y * quat.w)) * 0.5f) * RAD2DEGf;
+		//			else
+		//				euler[0] = (float)Math.Atan2((quat.x * quat.y - quat.z * quat.w) + (quat.y * quat.z - quat.x * quat.w), ((-sqx + sqy - sqz + sqw) - 2.0 * (quat.x * quat.z + quat.y * quat.w)) * 0.5f) * RAD2DEGf;
+		//		}
+		//		euler[1] *= RAD2DEGf;
 
-			if (Double.IsNaN(euler[0]) || Double.IsNaN(euler[1]) || Double.IsNaN(euler[2]))
-				return euler;
+		//		if (Double.IsNaN(euler[0]) || Double.IsNaN(euler[1]) || Double.IsNaN(euler[2]))
+		//			return euler;
 
-			return euler;
-		}
+		//		return euler;
+		//	}
 
-		public bool IsConnected
-		{
-			get { return GetConnectionStatus() == ConnectionStatus.Connected; }
-		}
+		//	public bool IsConnected
+		//	{
+		//		get { return GetConnectionStatus() == ConnectionStatus.Connected; }
+		//	}
 
-		public int numSkeletons {
-			get { return skeletons.Count; }
-		}
+		//	public int numSkeletons {
+		//		get { return skeletons.Count; }
+		//	}
 
 		public void Log(String msg)
 		{
-			Debug.Log(msg);
-			if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
-				log.text += "\n" + msg;
-			else {
-				lock (asyncLog)
-					asyncLog += "\n" + msg;
-			}
+			//Debug.Log(msg);
+			//if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
+			//	log.text += "\n" + msg;
+			//else
+			//{
+			//	lock (asyncLog)
+			//		asyncLog += "\n" + msg;
+			//}
 		}
 
-		public void Log(String msg, UnityEngine.Object context)
-		{
-			Debug.Log(msg, context);
-			if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
-				log.text += "\n" + msg;
-			else {
-				lock (asyncLog)
-					asyncLog += "\n" + msg;
-			}
-		}
+		//public void Log(String msg, UnityEngine.Object context)
+		//{
+		//	Debug.Log(msg, context);
+		//	if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
+		//		log.text += "\n" + msg;
+		//	else
+		//	{
+		//		lock (asyncLog)
+		//			asyncLog += "\n" + msg;
+		//	}
+		//}
 
 		public void LogWarning(String msg)
 		{
-			Debug.LogWarning(msg);
-			if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
-				log.text += "\nWarning: " + msg;
-			else {
-				lock (asyncLog)
-					asyncLog += "\nWarning: " + msg;
-			}
+			//Debug.LogWarning(msg);
+			//if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
+			//	log.text += "\nWarning: " + msg;
+			//else
+			//{
+			//	lock (asyncLog)
+			//		asyncLog += "\nWarning: " + msg;
+			//}
 		}
 
-		public void LogWarning(String msg, UnityEngine.Object context)
-		{
-			Debug.LogWarning(msg, context);
-			if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
-				log.text += "\nWarning: " + msg;
-			else {
-				lock (asyncLog)
-					asyncLog += "\nWarning: " + msg;
-			}
-		}
+		//public void LogWarning(String msg, UnityEngine.Object context)
+		//{
+		//	Debug.LogWarning(msg, context);
+		//	if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
+		//		log.text += "\nWarning: " + msg;
+		//	else
+		//	{
+		//		lock (asyncLog)
+		//			asyncLog += "\nWarning: " + msg;
+		//	}
+		//}
 
 		public void LogError(String msg)
 		{
-			Debug.LogError(msg);
-			if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
-				log.text = "\nError: " + msg;
-			else {
-				lock (asyncLog)
-					asyncLog += "\nError: " + msg;
-			}
+			//Debug.LogError(msg);
+			//if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
+			//	log.text = "\nError: " + msg;
+			//else
+			//{
+			//	lock (asyncLog)
+			//		asyncLog += "\nError: " + msg;
+			//}
 		}
 
-		public void LogError(String msg, UnityEngine.Object context)
-		{
-			Debug.LogError(msg, context);
-			if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
-				log.text = "\nError: " + msg;
-			else {
-				lock (asyncLog)
-					asyncLog += "\nError: " + msg;
-			}
-		}
-	}
+		//public void LogError(String msg, UnityEngine.Object context)
+		//{
+		//	Debug.LogError(msg, context);
+		//	if (log && mainThread.Equals(System.Threading.Thread.CurrentThread))
+		//		log.text = "\nError: " + msg;
+		//	else
+		//	{
+		//		lock (asyncLog)
+		//			asyncLog += "\nError: " + msg;
+		//	}
+		//}
+		//}
 
-	//==========================================================================
-	// Helper extension function to get all children from a specified transform
-	//==========================================================================
-	public static class TransformExtension
-	{
-		public static ArrayList GetAllChildren(this Transform transform)
-		{
-			ArrayList children = new ArrayList();
-			foreach (Transform child in transform) {
-				children.Add(child);
-				children.AddRange(GetAllChildren(child));
-			}
-			return children;
-		}
+		////==========================================================================
+		//// Helper extension function to get all children from a specified transform
+		////==========================================================================
+		//public static class TransformExtension
+		//{
+		//	public static ArrayList GetAllChildren(this Transform transform)
+		//	{
+		//		ArrayList children = new ArrayList();
+		//		foreach (Transform child in transform) {
+		//			children.Add(child);
+		//			children.AddRange(GetAllChildren(child));
+		//		}
+		//		return children;
+		//	}
+		//}
 	}
 }
