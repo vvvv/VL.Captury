@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" xmlns:r="reflection" Id="OmczPIaaHEqNLO51XJT5M7" LanguageVersion="2025.7.1-0176-g7254508e17" Version="0.128">
+  <NugetDependency Id="QUOV3d67banOl6hktHqVux" Location="VL.CoreLib" Version="2025.7.1-0176-g7254508e17" />
+  <Patch Id="CxmMsIbE5P5QZrApNgleQj">
+    <Canvas Id="GmsWd5yD8ZmPcrxKH3iY0q" DefaultCategory="Main" BordersChecked="false" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="OsC1OPbzebJOrEzoBHzn6l">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <CategoryReference Kind="Category" Name="Primitive" />
+      </p:NodeReference>
+      <Patch Id="FHIU9yAEGJkLjjrexfzVNX">
+        <Canvas Id="VpCOsZxRSnmLkZlr08Fq3z" CanvasType="Group">
+          <Node Bounds="454,231,52,19" Id="AvVKCNmlfsHQGOHAgqTeyT">
+            <p:NodeReference LastCategoryFullName="VL.NewLibrary.Template" LastDependency="VL.Captury.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="Captury" />
+            </p:NodeReference>
+            <Pin Id="DnxA8gyu1oQNuYIndjVO7X" Name="Node Context" Kind="InputPin" IsHidden="true" />
+            <Pin Id="FoSTbImfIKYPjKKxiNu9ga" Name="Update" Kind="ApplyPin" />
+          </Node>
+        </Canvas>
+        <Patch Id="PqvtGXCVzkqMePU2zOpZT9" Name="Create" />
+        <Patch Id="Tp3WBlS7wntQaOj7YJdXWK" Name="Update" />
+        <ProcessDefinition Id="AQ6J2AmhTXTPQ4AXdJw0wY">
+          <Fragment Id="SBzzOEfHjOnQXg5X1yRY3B" Patch="PqvtGXCVzkqMePU2zOpZT9" Enabled="true" />
+          <Fragment Id="HwuyJJ91xA3NKlvuprzcXZ" Patch="Tp3WBlS7wntQaOj7YJdXWK" Enabled="true" />
+        </ProcessDefinition>
+      </Patch>
+    </Node>
+  </Patch>
+  <NugetDependency Id="JeOZgPtiXnVMKorlCO14dJ" Location="VL.Captury" Version="0.0.0" />
+</Document>
