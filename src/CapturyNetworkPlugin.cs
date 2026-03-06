@@ -1034,7 +1034,7 @@ namespace Captury
 		// This function continously looks for new actors
 		// It runs in a separate thread
 		//================================================
-		void LookForActors()
+		unsafe void LookForActors()
 		{
 			try
 			{
@@ -1056,16 +1056,16 @@ namespace Captury
 						int numCameras = Captury_getCameras(remoteCaptury, out cameraData, 100);
 						if (numCameras > 0 && cameraData != IntPtr.Zero)
 						{
-							cameraPositions = new Vector3[numCameras];
+                            cameraPositions = new Vector3[numCameras];
 							cameraOrientations = new Quaternion[numCameras];
 							cameraFieldOfViews = new float[numCameras];
-							int szStruct = Marshal.SizeOf(typeof(CapturyCamera)) + 192; // this offset is here to take care of implicit padding
+							int szStruct = Marshal.SizeOf(typeof(CapturyCamera));
 							for (uint i = 0; i < numCameras; i++)
 							{
 								CapturyCamera camera = new CapturyCamera();
 								camera = (CapturyCamera)Marshal.PtrToStructure(new IntPtr(cameraData.ToInt64() + (szStruct * i)), typeof(CapturyCamera));
 								cameraPositions[i] = ConvertPosition(new Vector3(camera.positionX, camera.positionY, camera.positionZ));
-								cameraOrientations[i] = ConvertRotation(new Vector3(camera.orientationX, camera.orientationY, camera.orientationZ)) * new Quaternion(0, 0.7071f, 0, 0.7071f);
+								cameraOrientations[i] = ConvertRotation(new Vector3(camera.orientationX, camera.orientationY, camera.orientationZ));// * new Quaternion(0, 0.7071f, 0, 0.7071f);
 								cameraFieldOfViews[i] = (float)(Math.Atan2(camera.focalLength, 0.5f * camera.sensorWidth) * (camera.sensorHeight / camera.sensorWidth) * 2 * 180 / Math.PI);
 							}
 						}
@@ -1647,10 +1647,10 @@ namespace Captury
 		//===========================================================================================================================
 		public Quaternion ConvertRotation(Vector3 rotation)
 		{
-			Quaternion qx = Quaternion.RotationAxis(Vector3.UnitZ, rotation.X);
-			Quaternion qy = Quaternion.RotationAxis(Vector3.UnitY, rotation.Y);
-			Quaternion qz = Quaternion.RotationAxis(Vector3.UnitX, rotation.Z);
-			Quaternion qq = qz * qy * qx;
+			Quaternion qx = Quaternion.RotationAxis(Vector3.UnitX, (float)(VLMath.DegToRad * rotation.X));
+			Quaternion qy = Quaternion.RotationAxis(Vector3.UnitY, (float)(VLMath.DegToRad * rotation.Y));
+			Quaternion qz = Quaternion.RotationAxis(Vector3.UnitZ, (float)(VLMath.DegToRad * rotation.Z));
+			Quaternion qq = qx * qy * qz;
 
 			return qq; 
 			return worldRotation * qq;

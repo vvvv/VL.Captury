@@ -15,13 +15,16 @@
       </p:NodeReference>
       <Patch Id="MEx8ChbNmIWO93hb2jW6sm">
         <Canvas Id="REMUZuWhRqFNJr4I4QUXC8" CanvasType="Group">
-          <Node Bounds="350,133,61,19" Id="K0FnyG9RIjfOv5Y5Qm3Rra">
+          <Node Bounds="350,133,65,19" Id="K0FnyG9RIjfOv5Y5Qm3Rra">
             <p:NodeReference LastCategoryFullName="IO.Captury" LastDependency="VL.Captury.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="Captury" />
             </p:NodeReference>
             <Pin Id="EMGIT9kExysO76L2QQnGLs" Name="Node Context" Kind="InputPin" IsHidden="true" />
             <Pin Id="RcO4DUyxp49PCRLjCpUNrH" Name="Output" Kind="OutputPin" />
+            <Pin Id="JEh4U2p25iNM4DIu5PAATS" Name="Meassure Latency" Kind="InputPin" DefaultValue="False" />
+            <Pin Id="Azlkiq9ljUCOm620rAO6vi" Name="Use Pose Compression" Kind="InputPin" DefaultValue="False" />
+            <Pin Id="LADe17QnLSRLSowt5DJq9P" Name="Stream AR Tags" Kind="InputPin" DefaultValue="False" />
             <Pin Id="Mq7T9QBXpOiNKd1P8j76FZ" Name="Enabled" Kind="InputPin" />
             <Pin Id="CxebzvOs3fINwVv5AOlNnd" Name="Connection Status" Kind="OutputPin" />
           </Node>
@@ -30,7 +33,7 @@
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="SceneWindow" />
             </p:NodeReference>
-            <Pin Id="Lafvw8ullcyOvur0vO8Qmd" Name="Bounds" Kind="InputPin" DefaultValue="1603.3334, 91.333336, 674.6667, 408" IsHidden="true" />
+            <Pin Id="Lafvw8ullcyOvur0vO8Qmd" Name="Bounds" Kind="InputPin" DefaultValue="1204, 72, 674.6667, 408" IsHidden="true" />
             <Pin Id="KXsXrzXyEWoPu94vxoeK8q" Name="Bound to Document" Kind="InputPin" IsHidden="true" />
             <Pin Id="Kjm8yF5KawgQbM2PlZoCtp" Name="Dialog If Document Changed" Kind="InputPin" IsHidden="true" />
             <Pin Id="Peaz9NRaK89MGTk64aqD65" Name="Save Bounds" Kind="InputPin" IsHidden="true" />
@@ -263,7 +266,7 @@
             <Pin Id="NWycCYKzd7EOi6Iej7ueeM" Name="Already Loaded" Kind="OutputPin" />
             <Pin Id="PnmfRZBGGjyLRogGlm1G0z" Name="Url" Kind="OutputPin" IsHidden="true" />
           </Node>
-          <Pad Id="ItfZFchiAYyMsqGy0YKrWj" Comment="Enabled" Bounds="352,84,35,35" ShowValueBox="true" isIOBox="true" Value="True">
+          <Pad Id="ItfZFchiAYyMsqGy0YKrWj" Comment="Enabled" Bounds="412,81,35,35" ShowValueBox="true" isIOBox="true" Value="True">
             <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
               <Choice Kind="ImmutableTypeFlag" Name="Boolean" />
             </p:TypeAnnotation>
@@ -357,7 +360,7 @@
             <Pin Id="B0I1Hu3mjIHOAUmjeqWHnV" Name="Enabled" Kind="InputPin" DefaultValue="True" />
             <Pin Id="LOMNXxqR8VEQJ7DI8DFgrL" Name="Output" Kind="OutputPin" />
           </Node>
-          <Pad Id="BxTfS5vYgoPNVtkgca8iet" Comment="Connection Status" Bounds="408,173,92,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="BxTfS5vYgoPNVtkgca8iet" Comment="Connection Status" Bounds="412,171,92,15" ShowValueBox="true" isIOBox="true" />
         </Canvas>
         <Patch Id="FeFpIigU80gO8CaIt6q6Zg" Name="Create" />
         <Patch Id="LJli5sKrj0eNgcdnluS3jo" Name="Update" />
