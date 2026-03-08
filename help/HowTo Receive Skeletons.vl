@@ -361,6 +361,14 @@
             <Pin Id="LOMNXxqR8VEQJ7DI8DFgrL" Name="Output" Kind="OutputPin" />
           </Node>
           <Pad Id="BxTfS5vYgoPNVtkgca8iet" Comment="Connection Status" Bounds="412,171,92,15" ShowValueBox="true" isIOBox="true" />
+          <Node Bounds="370,360,93,19" Id="IoCJpqi7fpbMWFTYqE7mLZ">
+            <p:NodeReference LastCategoryFullName="IO.Captury" LastDependency="VL.IO.Captury.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="Captury2Captury" />
+            </p:NodeReference>
+            <Pin Id="O0JMkCRBBShLUPHVLGPIuh" Name="Output" Kind="OutputPin" />
+            <Pin Id="IAgdkvl8JZHMs4kr8P3sj8" Name="Node Context" Kind="InputPin" IsHidden="true" />
+          </Node>
         </Canvas>
         <Patch Id="FeFpIigU80gO8CaIt6q6Zg" Name="Create" />
         <Patch Id="LJli5sKrj0eNgcdnluS3jo" Name="Update" />
@@ -380,7 +388,6 @@
         <Link Id="ASUgw5kxilwQc0E5iGGZWg" Ids="TJeN2GquS4CLoZXblgVrRx,NCTvcumL6CdM9gG6BYVodr" />
         <Link Id="THWYlzYy3TAMKA6vKIV9sM" Ids="V0GWp4QW5opNnehC2ZB7Pu,DbGpMm6CI5OOzDY1Sv3Ttq" />
         <Link Id="Q1AtKjZmeX2MpRozvwtKh2" Ids="DbGpMm6CI5OOzDY1Sv3Ttq,EGYCVDyiEqfNTSW5qvM48i" />
-        <Link Id="HyPH5KvmI5WLKXkehuU1mX" Ids="KylgIVdeJ1QNsLW1XwjerB,DtYSGiAoS96NFXX9lUQpgU" />
         <Link Id="HKuSGfDVgbUNQ0wFtN4Esi" Ids="R1uxlgg2Cl5QTYdFGvTfgy,L9qt8tIWTupPjPaHlsEkW1" />
         <Link Id="Hf6XZ8neghNNtUJwI5djxJ" Ids="J4qaNpciclRPeFDsOhXhO1,MSm14AMxKOEOVLUO4zT0bn" />
         <Link Id="L7ZLiNG3z3oPmZutPZVO8z" Ids="J1WHVlju0CjO4Q1nHd0t94,Dka7yS6xTRINd2MX6XLokz" />
@@ -393,8 +400,9 @@
         <Link Id="ST0SHzKe6V8NO8QvsJsPe5" Ids="N4kphN8hJJbLGRvP9KFs7G,Q7OJ0O5N63jNATdx1uIwRJ" />
         <Link Id="Q4M4ev8Yp56N9IT9zWOBru" Ids="PZDckmZHIvvMnSeTporRAo,KlTYOjdsRatPOK5PX1sc6C" />
         <Link Id="JmErOuryD9WOXLZPso2ZWN" Ids="LOMNXxqR8VEQJ7DI8DFgrL,TLSvra4qLo0MrBgvdEnB5M" />
-        <Link Id="HUtYEQtxZfbPopda7QhKcx" Ids="JkkVUFL7DSrPfYV3dKmO7v,LQjHSuFBbR1OkcONCwaJ44" />
         <Link Id="QO9abr7t5HLMkKA1PeYVGM" Ids="CxebzvOs3fINwVv5AOlNnd,BxTfS5vYgoPNVtkgca8iet" />
+        <Link Id="M8UEcJIWJaiPB1HhDnkvjP" Ids="JkkVUFL7DSrPfYV3dKmO7v,LQjHSuFBbR1OkcONCwaJ44" />
+        <Link Id="VWsnN4yeWpWLmE0duLwHhq" Ids="KylgIVdeJ1QNsLW1XwjerB,DtYSGiAoS96NFXX9lUQpgU" />
       </Patch>
     </Node>
   </Patch>
