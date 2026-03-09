@@ -1,6 +1,6 @@
 # VL.Captury
 
-Support for ArTag and markerless Skeleton tracking by [Captury](https://captury.com/).
+Support for markerless Skeleton and ArTag and tracking by [Captury](https://captury.com/).
 
 For use with vvvv, the visual live-programming environment for .NET: http://vvvv.org
 
