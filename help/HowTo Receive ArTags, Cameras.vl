@@ -288,5 +288,5 @@
     </Node>
   </Patch>
   <NugetDependency Id="GurPNWjW71EMGPjl859vuz" Location="VL.Stride" Version="2025.7.1-0176-g7254508e17" />
-  <NugetDependency Id="FVqMZOk8j5VOF2vkmglMT0" Location="VL.IO.Captury" Version="0.0.0" />
+  <NugetDependency Id="K5jNqHPsDCJPtlL4b5h3qn" Location="VL.Captury" Version="0.0.0" />
 </Document>

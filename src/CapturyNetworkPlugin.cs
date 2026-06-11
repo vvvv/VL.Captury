@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Concurrent;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Net;
 
 namespace Captury
@@ -685,7 +680,7 @@ namespace Captury
 			Captury_connect2(remoteCaptury, host, port, 0, 21010, 1/*async*/, convertToIP4(localIP), convertToIP4(multicastIP));
 
 			// set what you want to stream once and for all
-			CapturyStream streamWhat = CapturyStream.Poses | CapturyStream.OnlyRootTranslation;
+			CapturyStream streamWhat = CapturyStream.LocalPoses | CapturyStream.OnlyRootTranslation;
 			if (streamARTags)
 				streamWhat |= CapturyStream.ArTags;
 			if (measureLatency)

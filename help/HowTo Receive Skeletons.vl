@@ -361,7 +361,7 @@
             <Pin Id="LOMNXxqR8VEQJ7DI8DFgrL" Name="Output" Kind="OutputPin" />
           </Node>
           <Pad Id="BxTfS5vYgoPNVtkgca8iet" Comment="Connection Status" Bounds="412,171,92,15" ShowValueBox="true" isIOBox="true" />
-          <Node Bounds="370,360,93,19" Id="IoCJpqi7fpbMWFTYqE7mLZ">
+          <Node Bounds="378,360,93,19" Id="IoCJpqi7fpbMWFTYqE7mLZ">
             <p:NodeReference LastCategoryFullName="IO.Captury" LastDependency="VL.IO.Captury.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="Captury2Captury" />
@@ -408,5 +408,5 @@
   </Patch>
   <NugetDependency Id="LoZlitJvpqDNo4mGZWLEAH" Location="VL.Stride" Version="2025.7.1-0176-g7254508e17" />
   <NugetDependency Id="ShIqI9Th6w2MLSRinfv5Tq" Location="VL.Skeleton" Version="0.0.2-alpha" />
-  <NugetDependency Id="CUwGy0W9I8hMnoI6j6vwI5" Location="VL.IO.Captury" Version="0.0.0" />
+  <NugetDependency Id="H4JLSVsS5oeOmVAdi5qBQV" Location="VL.Captury" Version="0.0.0" />
 </Document>
