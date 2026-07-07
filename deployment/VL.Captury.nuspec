@@ -6,11 +6,11 @@
     <version>0.0.1-alpha</version>
     <title>VL.Captury</title>
     <authors>vvvv, captury</authors>
-    <projectUrl>https://github.com/vvvv/VL.IO.Captury</projectUrl>
-    <repository type="git" url="https://github.com/vvvv/VL.IO.Captury.git" />
+    <projectUrl>https://github.com/vvvv/VL.Captury</projectUrl>
+    <repository type="git" url="https://github.com/vvvv/VL.Captury.git" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Support for markerless Skeleton and ArTag and tracking by Captury</description>
-    <tags>VL, body, skeleton, artag, tracking, avateering</tags>
+    <description>Support for markerless Skeleton tracking and ArTag tracking by Captury</description>
+    <tags>VL, body, skeleton, artag, tracking, avateering, finger, hand</tags>
     <license type="expression">LGPL-3.0-only</license>
     <icon>icon\nugeticon.png</icon>
     <readme>docs\README.md</readme>

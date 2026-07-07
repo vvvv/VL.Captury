@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" xmlns:r="reflection" Id="EWHWcwf3oBvPnhn254YyBa" LanguageVersion="2025.7.2" Version="0.128">
+<Document xmlns:p="property" xmlns:r="reflection" Id="EWHWcwf3oBvPnhn254YyBa" LanguageVersion="2025.7.3" Version="0.128">
   <Patch Id="Rgz0iK0cdl5O6XLZAnSI2k">
     <Canvas Id="EtMz6eWyJpjMOVOROl6714" DefaultCategory="IO.Captury" CanvasType="FullCategory">
       <!--
@@ -14,7 +14,7 @@
         </p:NodeReference>
         <Patch Id="PUxGqOk9kPBPQWxEHM1hGd">
           <Canvas Id="QbEN3rCAb5HQZ8ZHN4diiv" CanvasType="Group">
-            <Node Bounds="104,47,421,444" Id="OV6ogYwsbdwMalPK7lb5bF">
+            <Node Bounds="105,-24,420,626" Id="OV6ogYwsbdwMalPK7lb5bF">
               <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <CategoryReference Kind="Category" Name="Primitive" />
@@ -26,7 +26,7 @@
               <Patch Id="P6rmOnPX5fHLfFxoQOyiX2" ManuallySortedPins="true">
                 <Patch Id="R8IBg3jqxELQYoc1wQiuE0" Name="Create" ManuallySortedPins="true" />
                 <Patch Id="SORJVlkqlK9MMj6Zf4gAkp" Name="Then" ManuallySortedPins="true" />
-                <Node Bounds="127,67,151,214" Id="VactjkogC5wNhIADqHxbAi">
+                <Node Bounds="128,-4,203,410" Id="VactjkogC5wNhIADqHxbAi">
                   <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                     <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                     <CategoryReference Kind="Category" Name="Primitive" />
@@ -36,7 +36,7 @@
                   <Patch Id="LwwbLCUhlzmQFkWnzcSga4" ManuallySortedPins="true">
                     <Patch Id="R2kIBHZRj3EOBYd9RkrVe2" Name="Create" ManuallySortedPins="true" />
                     <Patch Id="HIZhcQaqsPrLA22izTCJBd" Name="Then" ManuallySortedPins="true" />
-                    <Node Bounds="140,90,96,26" Id="VYRmtUtEczQQbvtAaBNOBV">
+                    <Node Bounds="140,19,96,26" Id="VYRmtUtEczQQbvtAaBNOBV">
                       <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.Captury.csproj">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="AssemblyCategory" Name="CapturyNetworkPlugin" NeedsToBeDirectParent="true" />
@@ -44,7 +44,7 @@
                       </p:NodeReference>
                       <Pin Id="PwL4CDzfDcbNeFHcJBQQEk" Name="Output" Kind="StateOutputPin" />
                     </Node>
-                    <Node Bounds="139,235,96,26" Id="IVvThd6GjAkPJSF68sWTxu">
+                    <Node Bounds="140,360,96,26" Id="IVvThd6GjAkPJSF68sWTxu">
                       <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.Captury.csproj">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="AssemblyCategory" Name="CapturyNetworkPlugin" NeedsToBeDirectParent="true" />
@@ -54,7 +54,7 @@
                       <Pin Id="QQQ2eu3hEMjQEzdXHqQVgo" Name="Output" Kind="StateOutputPin" />
                       <Pin Id="FjCgfqQJdK1O8x0eU3l8tU" Name="Apply" Kind="InputPin" />
                     </Node>
-                    <Node Bounds="140,161,126,26" Id="SLQr9BaKsnyLZm7gMEAVhX">
+                    <Node Bounds="140,280,126,26" Id="SLQr9BaKsnyLZm7gMEAVhX">
                       <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.IO.Captury.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="SetusePoseCompression" />
@@ -63,7 +63,7 @@
                       <Pin Id="KgWkFdzpC8wMPesUslLe43" Name="Value" Kind="InputPin" />
                       <Pin Id="PW6HIDSfYXQLY1w3EPjj0I" Name="Output" Kind="StateOutputPin" />
                     </Node>
-                    <Node Bounds="140,201,96,26" Id="BmZaougpo0aQa0L0WVH6Jf">
+                    <Node Bounds="140,320,96,26" Id="BmZaougpo0aQa0L0WVH6Jf">
                       <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.IO.Captury.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="SetstreamARTags" />
@@ -72,7 +72,7 @@
                       <Pin Id="RX6jWGW88jgNzOTvw3iTD5" Name="Value" Kind="InputPin" />
                       <Pin Id="Vwdsp1fshXFPc0F6ddJd7e" Name="Output" Kind="StateOutputPin" />
                     </Node>
-                    <Node Bounds="140,131,103,26" Id="R2S4QcHa4V1OgUEk3ykqRw">
+                    <Node Bounds="140,240,103,26" Id="R2S4QcHa4V1OgUEk3ykqRw">
                       <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.IO.Captury.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="SetmeasureLatency" />
@@ -81,11 +81,39 @@
                       <Pin Id="Hh5myoTQ8EvNp7Mvg8HTGb" Name="Value" Kind="InputPin" />
                       <Pin Id="Hu8dqRptY5LLe2jbFy7rgn" Name="Output" Kind="StateOutputPin" />
                     </Node>
+                    <Node Bounds="140,100,96,26" Id="Vvo9nvN7w2ZMlrd7iAARu0">
+                      <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.Captury.dll">
+                        <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                        <FullNameCategoryReference ID="Captury.CapturyNetworkPlugin" />
+                        <Choice Kind="OperationCallFlag" Name="Setport" />
+                      </p:NodeReference>
+                      <Pin Id="Khaw4VfymlAMlUexEtE4Yn" Name="Input" Kind="StateInputPin" />
+                      <Pin Id="Q1Q6jXtgMefN7biLARuMeZ" Name="Value" Kind="InputPin" />
+                      <Pin Id="Akwy6ctwcStMOZA43soH6C" Name="Output" Kind="StateOutputPin" />
+                    </Node>
+                    <Node Bounds="261,20,58,19" Id="FtCemx1llVSLLze99UbiPK">
+                      <p:NodeReference LastCategoryFullName="System.Conversion" LastDependency="VL.CoreLib.vl">
+                        <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                        <CategoryReference Kind="Category" Name="Conversion" NeedsToBeDirectParent="true" />
+                        <Choice Kind="OperationCallFlag" Name="ToUInt16" />
+                      </p:NodeReference>
+                      <Pin Id="FrnjJAIlj4OPsp6pMy1Wle" Name="Input" Kind="InputPin" />
+                      <Pin Id="IVAV6K835bVMIos1D1SEle" Name="Result" Kind="OutputPin" />
+                    </Node>
+                    <Node Bounds="140,61,96,26" Id="FkI3WQhHpTuNHr2fTJBAzu">
+                      <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.Captury.dll">
+                        <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                        <Choice Kind="OperationCallFlag" Name="Sethost" />
+                      </p:NodeReference>
+                      <Pin Id="JG1pKKQbFaGOLtLGReVhcz" Name="Input" Kind="StateInputPin" />
+                      <Pin Id="C7ortgYCMQMLmsp18dR0cU" Name="Value" Kind="InputPin" />
+                      <Pin Id="FY0rNf1WfBHLP7vgxrqmkV" Name="Output" Kind="StateOutputPin" />
+                    </Node>
                   </Patch>
-                  <ControlPoint Id="Llfu2urelyRQB5xPupxRjv" Bounds="141,275" Alignment="Bottom" />
-                  <ControlPoint Id="AelhtU2KLwyOoT734KZPC2" Bounds="142,73" Alignment="Top" />
+                  <ControlPoint Id="Llfu2urelyRQB5xPupxRjv" Bounds="142,400" Alignment="Bottom" />
+                  <ControlPoint Id="AelhtU2KLwyOoT734KZPC2" Bounds="142,2" Alignment="Top" />
                 </Node>
-                <Node Bounds="243,315,155,154" Id="AjpUVlm5dTFNxWPQRURfNN">
+                <Node Bounds="244,427,155,154" Id="AjpUVlm5dTFNxWPQRURfNN">
                   <p:NodeReference LastCategoryFullName="Reactive.Disposables.Disposable" LastDependency="VL.CoreLib.vl" OverloadStrategy="AllPinsThatAreNotCommon">
                     <Choice Kind="RegionFlag" Name="Region (Stateless)" Fixed="true" />
                     <CategoryReference Kind="ClassType" Name="Disposable" />
@@ -98,7 +126,7 @@
                   </p:NodeReference>
                   <Pin Id="UTkzgPhjyL7Oee4eJfGNry" Name="Result" Kind="OutputPin" />
                   <Patch Id="DdSoMfo0VYgOnTi0kKB9zN" Name="Dispose" ManuallySortedPins="true">
-                    <Node Bounds="266,369,120,80" Id="PzzzqI3ovN3OQCTsb0JvYe">
+                    <Node Bounds="267,481,120,80" Id="PzzzqI3ovN3OQCTsb0JvYe">
                       <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                         <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                         <CategoryReference Kind="Category" Name="Primitive" />
@@ -108,7 +136,7 @@
                       <Patch Id="ODTXt3zPEjsN4nBf2LWroT" ManuallySortedPins="true">
                         <Patch Id="JAIh0vMqlr5QaD9cetwnBk" Name="Create" ManuallySortedPins="true" />
                         <Patch Id="IhPVMgVPJgILeZTOPdybwk" Name="Then" ManuallySortedPins="true" />
-                        <Node Bounds="278,398,96,26" Id="QPMqgRjVpVrLXaTHQpKZcV">
+                        <Node Bounds="279,510,96,26" Id="QPMqgRjVpVrLXaTHQpKZcV">
                           <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.Captury.csproj">
                             <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                             <CategoryReference Kind="AssemblyCategory" Name="CapturyNetworkPlugin" NeedsToBeDirectParent="true" />
@@ -119,7 +147,7 @@
                         </Node>
                       </Patch>
                     </Node>
-                    <Node Bounds="266,338,65,19" Id="J6ajGyf9oUDNdm4Mlxz5DE">
+                    <Node Bounds="266,450,65,19" Id="J6ajGyf9oUDNdm4Mlxz5DE">
                       <p:NodeReference LastCategoryFullName="Primitive.Object" LastDependency="VL.CoreLib.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="IsAssigned" />
@@ -131,15 +159,17 @@
                   </Patch>
                 </Node>
               </Patch>
-              <ControlPoint Id="LJpPV70ZSdcQNGcsjSPyky" Bounds="129,53" Alignment="Top" />
-              <ControlPoint Id="UCP0evzMOO7PlMbm78Ejtm" Bounds="141,485" Alignment="Bottom" />
-              <ControlPoint Id="BgRt6GxP24BLBu5tNTEcMM" Bounds="245,485" Alignment="Bottom" />
-              <ControlPoint Id="IrwRGDJF4BmM3KY1P1jMAC" Bounds="240,53" Alignment="Top" />
-              <ControlPoint Id="OilK99mBGRYPtNyDqvhlSq" Bounds="360,53" Alignment="Top" />
-              <ControlPoint Id="JgzWycgvqZNN9UsH08K98i" Bounds="510,53" Alignment="Top" />
+              <ControlPoint Id="LJpPV70ZSdcQNGcsjSPyky" Bounds="129,-18" Alignment="Top" />
+              <ControlPoint Id="UCP0evzMOO7PlMbm78Ejtm" Bounds="141,596" Alignment="Bottom" />
+              <ControlPoint Id="BgRt6GxP24BLBu5tNTEcMM" Bounds="245,596" Alignment="Bottom" />
+              <ControlPoint Id="IrwRGDJF4BmM3KY1P1jMAC" Bounds="240,-18" Alignment="Top" />
+              <ControlPoint Id="OilK99mBGRYPtNyDqvhlSq" Bounds="360,-18" Alignment="Top" />
+              <ControlPoint Id="JgzWycgvqZNN9UsH08K98i" Bounds="510,-18" Alignment="Top" />
+              <ControlPoint Id="JGtAN87vkbzMM8gbFrso7B" Bounds="263,-18" Alignment="Top" />
+              <ControlPoint Id="K4aEeUpVhHvPK5V7HYc5mG" Bounds="227,-18" Alignment="Top" />
             </Node>
-            <ControlPoint Id="MvBZSFjiuMrMBanzsSsJtp" Bounds="129,25" />
-            <Node Bounds="139,573,297,365" Id="DYdZPvdrAi6NmzQx533uMy">
+            <ControlPoint Id="MvBZSFjiuMrMBanzsSsJtp" Bounds="129,-46" />
+            <Node Bounds="139,673,297,365" Id="DYdZPvdrAi6NmzQx533uMy">
               <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <CategoryReference Kind="Category" Name="Primitive" />
@@ -149,7 +179,7 @@
               <Patch Id="Eyi0WHbf91gM6WgcnW5qsq" ManuallySortedPins="true">
                 <Patch Id="MFSRbCTF13dQDKIj4nW9CB" Name="Create" ManuallySortedPins="true" />
                 <Patch Id="CteUV9rA2yAQCidyS9RZio" Name="Then" ManuallySortedPins="true" />
-                <Node Bounds="151,599,111,26" Id="FjpLRBpcIspPZPEsQ1RvDj">
+                <Node Bounds="151,699,111,26" Id="FjpLRBpcIspPZPEsQ1RvDj">
                   <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.Captury.csproj">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <Choice Kind="OperationCallFlag" Name="GetConnectionStatus" />
@@ -158,7 +188,7 @@
                   <Pin Id="CdiBShvUa8uNYBYeQZfNSz" Name="Output" Kind="StateOutputPin" />
                   <Pin Id="Jw7D1iWQH9LLMTFBqdsYvB" Name="Result" Kind="OutputPin" />
                 </Node>
-                <Node Bounds="151,650,96,26" Id="ReHzWvhy7b5PsmbY82zXfF">
+                <Node Bounds="151,750,96,26" Id="ReHzWvhy7b5PsmbY82zXfF">
                   <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.CapturyUtils.csproj">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <Choice Kind="OperationCallFlag" Name="cameraPositions" />
@@ -167,7 +197,7 @@
                   <Pin Id="KdsCjN4TMhROdsNElKnStE" Name="Output" Kind="StateOutputPin" />
                   <Pin Id="ON1C7ybDByKP3DKLQc5iz0" Name="Camera Positions" Kind="OutputPin" />
                 </Node>
-                <Node Bounds="151,689,105,26" Id="Aynt2jB79CHNw8mwMHWNUQ">
+                <Node Bounds="151,789,105,26" Id="Aynt2jB79CHNw8mwMHWNUQ">
                   <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.CapturyUtils.csproj">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <Choice Kind="OperationCallFlag" Name="cameraOrientations" />
@@ -176,7 +206,7 @@
                   <Pin Id="Ef9hflv7AXENIp2jQZ6eQx" Name="Output" Kind="StateOutputPin" />
                   <Pin Id="EEvcXs7kvoSPMAvsjjpcVP" Name="Camera Orientations" Kind="OutputPin" />
                 </Node>
-                <Node Bounds="151,729,107,26" Id="JdxclhzaFLPMaVbms1ATfw">
+                <Node Bounds="151,829,107,26" Id="JdxclhzaFLPMaVbms1ATfw">
                   <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.CapturyUtils.csproj">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <Choice Kind="OperationCallFlag" Name="cameraFieldOfViews" />
@@ -185,7 +215,7 @@
                   <Pin Id="TWmJo70jo3SP0RGz5WvjGE" Name="Output" Kind="StateOutputPin" />
                   <Pin Id="JuNgSPjjbpuOV9bPr9OKw3" Name="Camera Field Of Views" Kind="OutputPin" />
                 </Node>
-                <Node Bounds="151,820,96,26" Id="JFX2IZly2gXNk3NuYeQTZ0">
+                <Node Bounds="151,920,96,26" Id="JFX2IZly2gXNk3NuYeQTZ0">
                   <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.CapturyUtils.csproj">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <Choice Kind="OperationCallFlag" Name="skeletons" />
@@ -194,7 +224,7 @@
                   <Pin Id="HkIuqHzISF6NmgDgIhsEmS" Name="Output" Kind="StateOutputPin" />
                   <Pin Id="J0vDbhF9dqYQHHkQHaqaaw" Name="Skeletons" Kind="OutputPin" />
                 </Node>
-                <Node Bounds="151,780,96,26" Id="H9LXED49ayHLE6ztTQXkAz">
+                <Node Bounds="151,880,96,26" Id="H9LXED49ayHLE6ztTQXkAz">
                   <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.Captury.csproj">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <CategoryReference Kind="AssemblyCategory" Name="CapturyNetworkPlugin" NeedsToBeDirectParent="true" />
@@ -203,7 +233,7 @@
                   <Pin Id="Hn5pBih6ygFLBaiF6m0Ybt" Name="Input" Kind="StateInputPin" />
                   <Pin Id="RkvFxtXQ1adQL7DznmQBcm" Name="Output" Kind="StateOutputPin" />
                 </Node>
-                <Node Bounds="151,861,96,26" Id="DNZxulAc8UENngPIvBYr0d">
+                <Node Bounds="151,961,96,26" Id="DNZxulAc8UENngPIvBYr0d">
                   <p:NodeReference LastCategoryFullName="Captury.CapturyNetworkPlugin" LastDependency="VL.IO.Captury.dll">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <Choice Kind="OperationCallFlag" Name="arTags" />
@@ -213,22 +243,22 @@
                   <Pin Id="KxmDAHmCQyBOil2SaE1VZ3" Name="Ar Tags" Kind="OutputPin" />
                 </Node>
               </Patch>
-              <ControlPoint Id="M9WrA05b9CcNVjBX3Vi1lH" Bounds="153,579" Alignment="Top" />
-              <ControlPoint Id="TzvrFxuXDvKNydqIANnKrB" Bounds="153,932" Alignment="Bottom" />
-              <ControlPoint Id="IopoZ6suB5hQUhBqtTcGM1" Bounds="261,932" Alignment="Bottom" />
-              <ControlPoint Id="OAJHsG18zV0OYLetxWrsWB" Bounds="261,579" Alignment="Top" />
-              <ControlPoint Id="NFD1YoyDHwDOeOnPk03jZf" Bounds="201,932" Alignment="Bottom" />
-              <ControlPoint Id="Rp95wJAPGNnNSU3UHFHwqh" Bounds="201,579" Alignment="Top" />
-              <ControlPoint Id="CS8iwQmR9GNLQd7t7Cd40m" Bounds="414,932" Alignment="Bottom" />
-              <ControlPoint Id="T3WOycJuBIyMyUcN0VgekL" Bounds="244,579" Alignment="Top" />
-              <ControlPoint Id="HVMGsS8aDWyPI9XyMzOLEv" Bounds="390,932" Alignment="Bottom" />
-              <ControlPoint Id="VDsvusRsVHPN6HhdJkHlrM" Bounds="340,579" Alignment="Top" />
-              <ControlPoint Id="VVwhhlsV3uINiDiSOGUhiV" Bounds="366,932" Alignment="Bottom" />
-              <ControlPoint Id="OJELeGnMOb8LdenegmIuj7" Bounds="366,579" Alignment="Top" />
-              <ControlPoint Id="GMUFvKzAWPgM3WLDjCDkct" Bounds="244,932" Alignment="Bottom" />
-              <ControlPoint Id="QPuAlemUjORLwMj860pTWG" Bounds="244,579" Alignment="Top" />
+              <ControlPoint Id="M9WrA05b9CcNVjBX3Vi1lH" Bounds="153,679" Alignment="Top" />
+              <ControlPoint Id="TzvrFxuXDvKNydqIANnKrB" Bounds="153,1032" Alignment="Bottom" />
+              <ControlPoint Id="IopoZ6suB5hQUhBqtTcGM1" Bounds="261,1032" Alignment="Bottom" />
+              <ControlPoint Id="OAJHsG18zV0OYLetxWrsWB" Bounds="261,679" Alignment="Top" />
+              <ControlPoint Id="NFD1YoyDHwDOeOnPk03jZf" Bounds="201,1032" Alignment="Bottom" />
+              <ControlPoint Id="Rp95wJAPGNnNSU3UHFHwqh" Bounds="201,679" Alignment="Top" />
+              <ControlPoint Id="CS8iwQmR9GNLQd7t7Cd40m" Bounds="414,1032" Alignment="Bottom" />
+              <ControlPoint Id="T3WOycJuBIyMyUcN0VgekL" Bounds="244,679" Alignment="Top" />
+              <ControlPoint Id="HVMGsS8aDWyPI9XyMzOLEv" Bounds="390,1032" Alignment="Bottom" />
+              <ControlPoint Id="VDsvusRsVHPN6HhdJkHlrM" Bounds="340,679" Alignment="Top" />
+              <ControlPoint Id="VVwhhlsV3uINiDiSOGUhiV" Bounds="366,1032" Alignment="Bottom" />
+              <ControlPoint Id="OJELeGnMOb8LdenegmIuj7" Bounds="366,679" Alignment="Top" />
+              <ControlPoint Id="GMUFvKzAWPgM3WLDjCDkct" Bounds="244,1032" Alignment="Bottom" />
+              <ControlPoint Id="QPuAlemUjORLwMj860pTWG" Bounds="244,679" Alignment="Top" />
             </Node>
-            <Node Bounds="139,529,65,19" Id="R0id41FjWoiNlFkBy3zLk6">
+            <Node Bounds="139,629,65,19" Id="R0id41FjWoiNlFkBy3zLk6">
               <p:NodeReference LastCategoryFullName="Primitive.Object" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="IsAssigned" />
@@ -237,25 +267,33 @@
               <Pin Id="Nm6IWNBl3r6MUiMMOmdI1X" Name="Result" Kind="OutputPin" />
               <Pin Id="I5Mz85eyVNcLHagbRs8Bmb" Name="Not Assigned" Kind="OutputPin" />
             </Node>
-            <ControlPoint Id="BjksC6PbR8fM46phSA4yQE" Bounds="261,971" />
-            <ControlPoint Id="QiRoLelJz7nLt89R1lWM71" Bounds="390,990" />
-            <ControlPoint Id="QcW9HLWFaPpOJkBMUp3m2z" Bounds="414,1010" />
-            <Pad Id="UuYXiqa75P1LdEMyedzzd7" Bounds="201,991" />
-            <ControlPoint Id="EE7lIB2dyjrLPN7EgKW9ZF" Bounds="201,1021" />
-            <Pad Id="DFmlAQoVLoYO3PGtzx2txw" Bounds="390,960" />
-            <Pad Id="ArwF4cK1jbyQK8DvotB4M6" Bounds="414,960" />
-            <ControlPoint Id="DGlTE8LU7FRP9ceOj1TcVs" Bounds="240,25" />
-            <ControlPoint Id="Il0rfI5zS0sP30Zd9WUL44" Bounds="360,25" />
-            <ControlPoint Id="G3xW1mGpwH9N5booQjSBqu" Bounds="510,25" />
-            <ControlPoint Id="LQIs2r8qYaKN7b2plGxQbw" Bounds="366,1030" />
-            <Pad Id="GUoYpdfb1DILfUpDYWOoji" Bounds="366,960" />
-            <Pad Id="Myw34Lj7aOGLk8z4Rly5w1" Bounds="244,990" />
-            <ControlPoint Id="PaHhgzuI5XYNzRsQK925pk" Bounds="273,1020" />
+            <ControlPoint Id="BjksC6PbR8fM46phSA4yQE" Bounds="261,1071" />
+            <ControlPoint Id="QiRoLelJz7nLt89R1lWM71" Bounds="390,1090" />
+            <ControlPoint Id="QcW9HLWFaPpOJkBMUp3m2z" Bounds="414,1110" />
+            <Pad Id="UuYXiqa75P1LdEMyedzzd7" Bounds="201,1091" />
+            <ControlPoint Id="EE7lIB2dyjrLPN7EgKW9ZF" Bounds="201,1121" />
+            <Pad Id="DFmlAQoVLoYO3PGtzx2txw" Bounds="390,1060" />
+            <Pad Id="ArwF4cK1jbyQK8DvotB4M6" Bounds="414,1060" />
+            <ControlPoint Id="DGlTE8LU7FRP9ceOj1TcVs" Bounds="240,-46" />
+            <ControlPoint Id="Il0rfI5zS0sP30Zd9WUL44" Bounds="360,-46" />
+            <ControlPoint Id="G3xW1mGpwH9N5booQjSBqu" Bounds="510,-46" />
+            <ControlPoint Id="LQIs2r8qYaKN7b2plGxQbw" Bounds="366,1130" />
+            <Pad Id="GUoYpdfb1DILfUpDYWOoji" Bounds="366,1060" />
+            <Pad Id="Myw34Lj7aOGLk8z4Rly5w1" Bounds="244,1090" />
+            <ControlPoint Id="PaHhgzuI5XYNzRsQK925pk" Bounds="273,1120" />
+            <ControlPoint Id="Tz3TFXZs6iQNIzlFVNFmDd" Bounds="263,-89" />
+            <ControlPoint Id="Ofa2zHulpMlPYxIeVJpgAI" Bounds="227,-120" />
           </Canvas>
           <Patch Id="IFiRlvynVhxLj4iflbyqIV" Name="Create (Internal)" />
           <Patch Id="UAsd5sTYmQfNyZvDRCg1Wz" Name="Update (Internal)" ManuallySortedPins="true">
-            <Pin Id="VzwTiAi7EQKLGV7Ew27gYe" Name="Meassure Latency" Kind="InputPin" />
-            <Pin Id="QAtDaIRnK60LFbWy2ZhOxG" Name="Use Pose Compression" Kind="InputPin" />
+            <Pin Id="C4n6KzEmSYAMowD2BhWPPw" Name="Remote Host" Kind="InputPin" DefaultValue="127.0.0.1" />
+            <Pin Id="DdiKXa6CXDdLafSAz8fHmh" Name="Remote Port" Kind="InputPin" DefaultValue="2101">
+              <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+                <Choice Kind="TypeFlag" Name="Integer32" />
+              </p:TypeAnnotation>
+            </Pin>
+            <Pin Id="VzwTiAi7EQKLGV7Ew27gYe" Name="Meassure Latency" Kind="InputPin" Visibility="Optional" />
+            <Pin Id="QAtDaIRnK60LFbWy2ZhOxG" Name="Use Pose Compression" Kind="InputPin" Visibility="Optional" />
             <Pin Id="FupOltOQGAuLU0VP0cHci4" Name="Stream AR Tags" Kind="InputPin" />
             <Pin Id="JDMWdBkIMpQMpgy6esACWy" Name="Enabled" Kind="InputPin" DefaultValue="True" />
             <Pin Id="EbPsG3Xu2T5NhpaNMPPprV" Name="Connection Status" Kind="OutputPin" />
@@ -272,7 +310,7 @@
           <Link Id="DSElyIgWwZxQIznhy28GVd" Ids="LJpPV70ZSdcQNGcsjSPyky,FP4DayoVqlTMPfOhllQQal" />
           <Link Id="Rrp9wdE2aetLSWk0pES0qT" Ids="MvBZSFjiuMrMBanzsSsJtp,LJpPV70ZSdcQNGcsjSPyky" />
           <Link Id="TIYs2ddrgOQMHwz7XkqEOm" Ids="JDMWdBkIMpQMpgy6esACWy,MvBZSFjiuMrMBanzsSsJtp" IsHidden="true" />
-          <Link Id="I0rcyfN0777LbzDiH8x1bY" Ids="PwL4CDzfDcbNeFHcJBQQEk,Rif5KJ4moGFLoGiRxCpbGc" />
+          <Link Id="I0rcyfN0777LbzDiH8x1bY" Ids="PwL4CDzfDcbNeFHcJBQQEk,JG1pKKQbFaGOLtLGReVhcz" />
           <Link Id="JSrpK2NcOs7OxkXgqAmiC6" Ids="AelhtU2KLwyOoT734KZPC2,Llfu2urelyRQB5xPupxRjv" IsFeedback="true" />
           <Link Id="EcfSgkabsyzLOaJwQKi01j" Ids="QQQ2eu3hEMjQEzdXHqQVgo,Llfu2urelyRQB5xPupxRjv" />
           <Link Id="OZhDm5UMtkYOf6YfxO8UTo" Ids="Llfu2urelyRQB5xPupxRjv,UCP0evzMOO7PlMbm78Ejtm" />
@@ -343,6 +381,15 @@
           <Patch Id="I3LMAxM2AWENNHiu6k81WF" Name="GetARTags (Internal)">
             <Pin Id="OSTfzfY6xB6PtmGHjuniGG" Name="AR Tags" Kind="OutputPin" />
           </Patch>
+          <Link Id="PbSM4JSgdgWP4kII4KwVzr" Ids="Akwy6ctwcStMOZA43soH6C,Rif5KJ4moGFLoGiRxCpbGc" />
+          <Link Id="No1fM1uFSzNOKyBMer8PSt" Ids="IVAV6K835bVMIos1D1SEle,Q1Q6jXtgMefN7biLARuMeZ" />
+          <Link Id="NDyvC4zg6l0LhLoFAhm11s" Ids="JGtAN87vkbzMM8gbFrso7B,FrnjJAIlj4OPsp6pMy1Wle" />
+          <Link Id="IOLxfOva1DUPHXpvyNYUYR" Ids="Tz3TFXZs6iQNIzlFVNFmDd,JGtAN87vkbzMM8gbFrso7B" />
+          <Link Id="VKz2DtXr4RUPuq88DElP8j" Ids="DdiKXa6CXDdLafSAz8fHmh,Tz3TFXZs6iQNIzlFVNFmDd" IsHidden="true" />
+          <Link Id="KG52n6Ys6sYO8Qqk57bXLc" Ids="FY0rNf1WfBHLP7vgxrqmkV,Khaw4VfymlAMlUexEtE4Yn" />
+          <Link Id="ObC7Eyq2PcWO8YDrWWFSey" Ids="K4aEeUpVhHvPK5V7HYc5mG,C7ortgYCMQMLmsp18dR0cU" />
+          <Link Id="L4PHGQYgml3N01xkjhhx8T" Ids="Ofa2zHulpMlPYxIeVJpgAI,K4aEeUpVhHvPK5V7HYc5mG" />
+          <Link Id="SBBe4BrcOu5MpWALphJxGY" Ids="C4n6KzEmSYAMowD2BhWPPw,Ofa2zHulpMlPYxIeVJpgAI" IsHidden="true" />
         </Patch>
       </Node>
       <!--
@@ -4162,8 +4209,8 @@
       </Patch>
     </Node>
   </Patch>
-  <NugetDependency Id="Ko9OqCOVyY7Pz8mbJrOqb0" Location="VL.CoreLib" Version="2025.7.2" />
-  <NugetDependency Id="TMH9m2uYSKyQIPkfpTc6Vw" Location="VL.Stride" Version="2025.7.2" />
+  <NugetDependency Id="Ko9OqCOVyY7Pz8mbJrOqb0" Location="VL.CoreLib" Version="2025.7.3" />
+  <NugetDependency Id="TMH9m2uYSKyQIPkfpTc6Vw" Location="VL.Stride" Version="2025.7.3" />
   <NugetDependency Id="P3SKpZa3wSnNg6Bheu4dHe" Location="VL.Skeleton" Version="0.0.0" />
   <PlatformDependency Id="Pg3mpbW4D4qPcXdI4ByH0k" Location="./lib/net8.0/VL.Captury.dll" />
 </Document>
