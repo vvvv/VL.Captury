@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="VL.Core" Version="2025.7.1-0176-g7254508e17" />
+    <PackageReference Include="VL.Core" Version="2025.7.4" />
   </ItemGroup>
 
   <ItemGroup>

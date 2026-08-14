@@ -1320,121 +1320,121 @@ namespace Captury
 			//skel.rawData = actorData;
 
 			int[] parents = new int[actor.numJoints];
-			if (actor.numJoints == 29)
-			{
-				parents[0] = -1; // hips
-				parents[1] = 0; // spine
-				parents[2] = 1; // spine1
-				parents[3] = 2; // spine2
-				parents[4] = 3; // spine3
-				parents[5] = 4; // spine4
-				parents[6] = 5; // neck
-				parents[7] = 6; // head
-				parents[8] = 7; // headee
-				parents[9] = 4; // leftshoulder
-				parents[10] = 9; // leftarm
-				parents[11] = 10; // leftforearm
-				parents[12] = 11; // lefthand
-				parents[13] = 12; // lefthandee
-				parents[14] = 4; // rightshoulder
-				parents[15] = 14; // rightarm
-				parents[16] = 15; // rightforearm
-				parents[17] = 16; // righthand
-				parents[18] = 17; // righthandee
-				parents[19] = 0; // leftupleg
-				parents[20] = 19; // leftleg
-				parents[21] = 20; // leftfoot
-				parents[22] = 21; // lefttoebase
-				parents[23] = 22; // leftfootee
-				parents[24] = 0; // rightupleg
-				parents[25] = 24; // rightleg
-				parents[26] = 25; // rightfoot
-				parents[27] = 26; // righttoebase
-				parents[28] = 27; // rightfootee
-			}
-			else if (actor.numJoints == 69)
-			{
-				parents[0] = -1; // hips
-				parents[1] = 0; // spine
-				parents[2] = 1; // spine1
-				parents[3] = 2; // spine2
-				parents[4] = 3; // spine3
-				parents[5] = 4; // spine4
-				parents[6] = 5; // neck
-				parents[7] = 6; // head
-				parents[8] = 7; // headee
-				parents[9] = 4; // leftshoulder
-				parents[10] = 9; // leftarm
-				parents[11] = 10; // leftforearm
+			//if (actor.numJoints == 29)
+			//{
+			//	parents[0] = -1; // hips
+			//	parents[1] = 0; // spine
+			//	parents[2] = 1; // spine1
+			//	parents[3] = 2; // spine2
+			//	parents[4] = 3; // spine3
+			//	parents[5] = 4; // spine4
+			//	parents[6] = 5; // neck
+			//	parents[7] = 6; // head
+			//	parents[8] = 7; // headee
+			//	parents[9] = 4; // leftshoulder
+			//	parents[10] = 9; // leftarm
+			//	parents[11] = 10; // leftforearm
+			//	parents[12] = 11; // lefthand
+			//	parents[13] = 12; // lefthandee
+			//	parents[14] = 4; // rightshoulder
+			//	parents[15] = 14; // rightarm
+			//	parents[16] = 15; // rightforearm
+			//	parents[17] = 16; // righthand
+			//	parents[18] = 17; // righthandee
+			//	parents[19] = 0; // leftupleg
+			//	parents[20] = 19; // leftleg
+			//	parents[21] = 20; // leftfoot
+			//	parents[22] = 21; // lefttoebase
+			//	parents[23] = 22; // leftfootee
+			//	parents[24] = 0; // rightupleg
+			//	parents[25] = 24; // rightleg
+			//	parents[26] = 25; // rightfoot
+			//	parents[27] = 26; // righttoebase
+			//	parents[28] = 27; // rightfootee
+			//}
+			//else if (actor.numJoints == 69)
+			//{
+			//	parents[0] = -1; // hips
+			//	parents[1] = 0; // spine
+			//	parents[2] = 1; // spine1
+			//	parents[3] = 2; // spine2
+			//	parents[4] = 3; // spine3
+			//	parents[5] = 4; // spine4
+			//	parents[6] = 5; // neck
+			//	parents[7] = 6; // head
+			//	parents[8] = 7; // headee
+			//	parents[9] = 4; // leftshoulder
+			//	parents[10] = 9; // leftarm
+			//	parents[11] = 10; // leftforearm
 
-				parents[12] = 11; // lefthand
-				parents[13] = 12; // leftthumb1
-				parents[14] = 13; // leftthumb2
-				parents[15] = 14; // leftthumb3
-				parents[16] = 15; // leftthumbee
-				parents[17] = 12; // leftindex1
-				parents[18] = 17; // leftindex2
-				parents[19] = 18; // leftindex3
-				parents[20] = 19; // leftindexee
-				parents[21] = 12; // leftmiddle1
-				parents[22] = 21; // leftmiddle2
-				parents[23] = 22; // leftmiddle3
-				parents[24] = 23; // leftmiddleee
-				parents[25] = 12; // leftring1
-				parents[26] = 25; // leftring2
-				parents[27] = 26; // leftring3
-				parents[28] = 27; // leftringee
-				parents[29] = 12; // leftpinky1
-				parents[30] = 29; // leftpinky2
-				parents[31] = 30; // leftpinky3
-				parents[32] = 31; // leftpinkyee
-				parents[33] = 12; // lefthandee
+			//	parents[12] = 11; // lefthand
+			//	parents[13] = 12; // leftthumb1
+			//	parents[14] = 13; // leftthumb2
+			//	parents[15] = 14; // leftthumb3
+			//	parents[16] = 15; // leftthumbee
+			//	parents[17] = 12; // leftindex1
+			//	parents[18] = 17; // leftindex2
+			//	parents[19] = 18; // leftindex3
+			//	parents[20] = 19; // leftindexee
+			//	parents[21] = 12; // leftmiddle1
+			//	parents[22] = 21; // leftmiddle2
+			//	parents[23] = 22; // leftmiddle3
+			//	parents[24] = 23; // leftmiddleee
+			//	parents[25] = 12; // leftring1
+			//	parents[26] = 25; // leftring2
+			//	parents[27] = 26; // leftring3
+			//	parents[28] = 27; // leftringee
+			//	parents[29] = 12; // leftpinky1
+			//	parents[30] = 29; // leftpinky2
+			//	parents[31] = 30; // leftpinky3
+			//	parents[32] = 31; // leftpinkyee
+			//	parents[33] = 12; // lefthandee
 
-				parents[34] = 4; // rightshoulder
-				parents[35] = 34; // rightarm
-				parents[36] = 35; // rightforearm
+			//	parents[34] = 4; // rightshoulder
+			//	parents[35] = 34; // rightarm
+			//	parents[36] = 35; // rightforearm
 
-				parents[37] = 36; // righthand
-				parents[38] = 37; // leftthumb1
-				parents[39] = 38; // leftthumb2
-				parents[40] = 39; // leftthumb3
-				parents[41] = 40; // leftthumbee
-				parents[42] = 37; // leftindex1
-				parents[43] = 42; // leftindex2
-				parents[44] = 43; // leftindex3
-				parents[45] = 44; // leftindexee
-				parents[46] = 37; // leftmiddle1
-				parents[47] = 46; // leftmiddle2
-				parents[48] = 47; // leftmiddle3
-				parents[49] = 48; // leftmiddleee
-				parents[50] = 37; // leftring1
-				parents[51] = 50; // leftring2
-				parents[52] = 51; // leftring3
-				parents[53] = 52; // leftringee
-				parents[54] = 37; // leftpinky1
-				parents[55] = 54; // leftpinky2
-				parents[56] = 55; // leftpinky3
-				parents[57] = 56; // leftpinkyee
-				parents[58] = 37; // righthandee
+			//	parents[37] = 36; // righthand
+			//	parents[38] = 37; // leftthumb1
+			//	parents[39] = 38; // leftthumb2
+			//	parents[40] = 39; // leftthumb3
+			//	parents[41] = 40; // leftthumbee
+			//	parents[42] = 37; // leftindex1
+			//	parents[43] = 42; // leftindex2
+			//	parents[44] = 43; // leftindex3
+			//	parents[45] = 44; // leftindexee
+			//	parents[46] = 37; // leftmiddle1
+			//	parents[47] = 46; // leftmiddle2
+			//	parents[48] = 47; // leftmiddle3
+			//	parents[49] = 48; // leftmiddleee
+			//	parents[50] = 37; // leftring1
+			//	parents[51] = 50; // leftring2
+			//	parents[52] = 51; // leftring3
+			//	parents[53] = 52; // leftringee
+			//	parents[54] = 37; // leftpinky1
+			//	parents[55] = 54; // leftpinky2
+			//	parents[56] = 55; // leftpinky3
+			//	parents[57] = 56; // leftpinkyee
+			//	parents[58] = 37; // righthandee
 
-				parents[59] = 0; // leftupleg
-				parents[60] = 19; // leftleg
-				parents[61] = 20; // leftfoot
-				parents[62] = 21; // lefttoebase
-				parents[63] = 22; // leftfootee
-				parents[64] = 0; // rightupleg
-				parents[65] = 24; // rightleg
-				parents[66] = 25; // rightfoot
-				parents[67] = 26; // righttoebase
-				parents[68] = 27; // rightfootee
-			}
-			else if (actor.numJoints == 1)
+			//	parents[59] = 0; // leftupleg
+			//	parents[60] = 19; // leftleg
+			//	parents[61] = 20; // leftfoot
+			//	parents[62] = 21; // lefttoebase
+			//	parents[63] = 22; // leftfootee
+			//	parents[64] = 0; // rightupleg
+			//	parents[65] = 24; // rightleg
+			//	parents[66] = 25; // rightfoot
+			//	parents[67] = 26; // righttoebase
+			//	parents[68] = 27; // rightfootee
+			//}
+			//else if (actor.numJoints == 1)
+			//{
+			//	parents[0] = -1;
+			//}
+			//else
 			{
-				parents[0] = -1;
-			}
-			else
-			{
-				LogWarning("Captury: cannot convert full actor. wrong number of joints. expected 1, 29 or 69, have " + actor.numJoints + ". trying my best...");
+				//LogWarning("Captury: cannot convert full actor. wrong number of joints. expected 1, 29 or 69, have " + actor.numJoints + ". trying my best...");
 				int szStructx = Marshal.SizeOf(typeof(CapturyJoint));
 				for (uint i = 0; i < actor.numJoints; i++)
 				{
