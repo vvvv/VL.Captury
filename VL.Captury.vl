@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" xmlns:r="reflection" Id="EWHWcwf3oBvPnhn254YyBa" LanguageVersion="2025.7.5-0002-g40b593cf67" Version="0.128">
+<Document xmlns:p="property" xmlns:r="reflection" Id="EWHWcwf3oBvPnhn254YyBa" LanguageVersion="2025.7.4" Version="0.128">
   <Patch Id="Rgz0iK0cdl5O6XLZAnSI2k">
     <Canvas Id="EtMz6eWyJpjMOVOROl6714" DefaultCategory="IO.Captury" CanvasType="FullCategory">
       <!--
@@ -618,7 +618,7 @@
                   </p:NodeReference>
                   <Pin Id="QxNyYpqtl4TN8mPiCud3Rp" Name="Condition" Kind="InputPin" />
                   <Patch Id="NeDkKBdtkYZNpGcNqC6krn" ManuallySortedPins="true">
-                    <Patch Id="ABL3m9CWFivLVGuxXvFusM" Name="Create" ParticipatingElements="CvOkIxSFr0sLKYeMpg1SvV,OVMo8YjSXNlOIEoSq6mUrX" ManuallySortedPins="true" />
+                    <Patch Id="ABL3m9CWFivLVGuxXvFusM" Name="Create" ParticipatingElements="OVMo8YjSXNlOIEoSq6mUrX,CvOkIxSFr0sLKYeMpg1SvV" ManuallySortedPins="true" />
                     <Patch Id="KOVtrQoIRfELkb0NeXe0u8" Name="Then" ManuallySortedPins="true" />
                     <Node Bounds="399,776,652,537" Id="NsJFrZVX2sPLmWvNduLMCU">
                       <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
@@ -814,6 +814,7 @@
                       <ControlPoint Id="UCDHU1x1816LGSUAErVUPP" Bounds="570,1307" Alignment="Bottom" />
                       <ControlPoint Id="AuhBpWRkIRZNZbp4c1zIIW" Bounds="904,782" Alignment="Top" />
                       <ControlPoint Id="UdDib8N3hWVOZZcBepJJ6u" Bounds="905,1307" Alignment="Bottom" />
+                      <ControlPoint Id="E52PSJzBunUP2R7CDso6en" Bounds="783,1307" Alignment="Bottom" />
                     </Node>
                     <Node Bounds="558,1453,138,19" Id="SeWdrkSyVCiL12tErmgMdB">
                       <p:NodeReference LastCategoryFullName="Devices.Dollars.DollarsMoCap" LastDependency="VL.DollarsMoCap.vl">
@@ -947,6 +948,7 @@
                       <Pin Id="UWANAucDNsKOHWALhYKYLs" Name="Input" Kind="StateInputPin" />
                       <Pin Id="IB9DXSKnBDeMzZLpw8xg4d" Name="Output" Kind="StateOutputPin" />
                     </Node>
+                    <Pad Id="VcCAF4c50Z4NuJZcg4nTMo" Comment="" Bounds="783,1360,102,95" ShowValueBox="true" isIOBox="true" />
                   </Patch>
                   <ControlPoint Id="SghYIiNRnKwONXVHYbFAzP" Bounds="437,1689" Alignment="Bottom" />
                   <ControlPoint Id="JHkGSlYRkw6OvzUDgle3SG" Bounds="437,562" Alignment="Top" />
@@ -1190,6 +1192,8 @@
           <Link Id="DFlh3zpvynSOxnMJfpyIJQ" Ids="Mce08oIcEXEQMRKiW5z4Al,UdOozNuzkeQO9ygfNxrIPE" />
           <Link Id="OuxMKgRmCYQM8qX0j8KgNG" Ids="KoH2f6cKtGzMi3J6Aq8mgY,AiS5F4z1TC4LrMjN4sDGJF" />
           <Link Id="BMMqByBD7qyLYYLJQ2sha8" Ids="NaRTjrpj0VJQVJthuN8LTT,Vj1lCDCNvh8NF3oLIjZhmV" />
+          <Link Id="MoA4kxMrgzfOSTZLSHu8OH" Ids="UIfI72xvygrONi4SErM1bN,E52PSJzBunUP2R7CDso6en" />
+          <Link Id="A06kxssx8qsLOABZ4m8xoz" Ids="E52PSJzBunUP2R7CDso6en,VcCAF4c50Z4NuJZcg4nTMo" />
         </Patch>
       </Node>
       <!--
@@ -4470,9 +4474,9 @@
       </Patch>
     </Node>
   </Patch>
-  <NugetDependency Id="Ko9OqCOVyY7Pz8mbJrOqb0" Location="VL.CoreLib" Version="2025.7.5-0002-g40b593cf67" />
-  <NugetDependency Id="TMH9m2uYSKyQIPkfpTc6Vw" Location="VL.Stride" Version="2025.7.5-0002-g40b593cf67" />
+  <NugetDependency Id="Ko9OqCOVyY7Pz8mbJrOqb0" Location="VL.CoreLib" Version="2025.7.4" />
+  <NugetDependency Id="TMH9m2uYSKyQIPkfpTc6Vw" Location="VL.Stride" Version="2025.7.4" />
   <NugetDependency Id="P3SKpZa3wSnNg6Bheu4dHe" Location="VL.Skeleton" Version="0.0.0" />
   <PlatformDependency Id="Pg3mpbW4D4qPcXdI4ByH0k" Location="./lib/net8.0/VL.Captury.dll" />
-  <NugetDependency Id="RyrVd98LYFsOMcuysEvTy8" Location="VL.Serialization.FSPickler" Version="2025.7.5-0002-g40b593cf67" />
+  <NugetDependency Id="RyrVd98LYFsOMcuysEvTy8" Location="VL.Serialization.FSPickler" Version="2025.7.4" />
 </Document>
