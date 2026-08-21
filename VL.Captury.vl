@@ -576,10 +576,10 @@
               <Pin Id="I33qh6UHawyOJCkkhMVona" Name="Output" Kind="StateOutputPin" />
               <Pin Id="R6Fooq9IJHoOZzBEoNBPpU" Name="Skeletons" Kind="OutputPin" />
             </Node>
-            <ControlPoint Id="Gq3wyFYRjxEMxVOdhP6S5x" Bounds="644,1810" />
-            <ControlPoint Id="P40OG6JsX3lOynlGqjTKjA" Bounds="437,1790" />
+            <ControlPoint Id="Gq3wyFYRjxEMxVOdhP6S5x" Bounds="644,1860" />
+            <ControlPoint Id="P40OG6JsX3lOynlGqjTKjA" Bounds="437,1840" />
             <ControlPoint Id="KNQdgjPIgYjMQXZILNTVpc" Bounds="151,69" />
-            <Node Bounds="169,406,970,1309" Id="BuIUitxq0gVPfylfdx1Eaf">
+            <Node Bounds="169,406,970,1359" Id="BuIUitxq0gVPfylfdx1Eaf">
               <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <CategoryReference Kind="Category" Name="Primitive" />
@@ -989,18 +989,28 @@
                     <p:buttonmode p:Assembly="VL.UI.Forms" p:Type="VL.HDE.PatchEditor.Editors.ButtonModeEnum">Toggle</p:buttonmode>
                   </p:ValueBoxSettings>
                 </Pad>
+                <Node Bounds="903,1711,66,26" Id="PzoZLUKFTDFOtXihsZEqJ2">
+                  <p:NodeReference LastCategoryFullName="Collections.Builder.SpreadBuilder" LastDependency="VL.CoreLib.vl">
+                    <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                    <CategoryReference Kind="ClassType" Name="SpreadBuilder" NeedsToBeDirectParent="true" />
+                    <Choice Kind="OperationCallFlag" Name="ToSpread" />
+                  </p:NodeReference>
+                  <Pin Id="IOiAJqofFXXPdDv0PlMMrV" Name="Input" Kind="StateInputPin" />
+                  <Pin Id="Tb6NVt57u4tL6h1MBWjETT" Name="Output" Kind="StateOutputPin" />
+                  <Pin Id="GvRYBXO18sTP6etrU0uT88" Name="Result" Kind="OutputPin" />
+                </Node>
               </Patch>
-              <ControlPoint Id="BIoTqkHV7tyQDc5iARNOhG" Bounds="437,1709" Alignment="Bottom" />
-              <ControlPoint Id="DeQtARmV3R6QQYJwPEgLLy" Bounds="638,1709" Alignment="Bottom" />
-              <ControlPoint Id="HszF94eHfWNPDjPsRQ78im" Bounds="362,1709" Alignment="Bottom" />
-              <ControlPoint Id="DAnnqKiilDpNJmLrU4Yvzp" Bounds="286,1709" Alignment="Bottom" />
-              <ControlPoint Id="ElZqY0ue31lPNMgFgsulFQ" Bounds="905,1709" Alignment="Bottom" />
+              <ControlPoint Id="BIoTqkHV7tyQDc5iARNOhG" Bounds="437,1759" Alignment="Bottom" />
+              <ControlPoint Id="DeQtARmV3R6QQYJwPEgLLy" Bounds="638,1759" Alignment="Bottom" />
+              <ControlPoint Id="HszF94eHfWNPDjPsRQ78im" Bounds="362,1759" Alignment="Bottom" />
+              <ControlPoint Id="DAnnqKiilDpNJmLrU4Yvzp" Bounds="286,1759" Alignment="Bottom" />
+              <ControlPoint Id="ElZqY0ue31lPNMgFgsulFQ" Bounds="905,1759" Alignment="Bottom" />
               <ControlPoint Id="HegHqGo3cHjPEScY0F2EWG" Bounds="278,412" Alignment="Top" />
             </Node>
-            <ControlPoint Id="OSuDeh97GNxMgys0pebRuR" Bounds="362,1819" />
-            <ControlPoint Id="N4N6VRAI5SrPEPCAK6kn5G" Bounds="286,1849" />
-            <ControlPoint Id="FypoNxhzaysPGwOVUVDDgK" Bounds="905,1750" />
-            <Node Bounds="636,1769,80,19" Id="OhAxHbZptvQNdAFCfGq5F8">
+            <ControlPoint Id="OSuDeh97GNxMgys0pebRuR" Bounds="362,1869" />
+            <ControlPoint Id="N4N6VRAI5SrPEPCAK6kn5G" Bounds="286,1899" />
+            <ControlPoint Id="FypoNxhzaysPGwOVUVDDgK" Bounds="905,1800" />
+            <Node Bounds="636,1819,80,19" Id="OhAxHbZptvQNdAFCfGq5F8">
               <p:NodeReference LastCategoryFullName="Collections.Sequence" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <FullNameCategoryReference ID="Collections.Sequence" />
@@ -1158,7 +1168,7 @@
           <Link Id="VuWkNuSHx2KOdftDy5GPRi" Ids="POst6IbHgWCQTyBfX8BrMz,JNdVq7xtKHjOBh6DjGyp0L" />
           <Link Id="HTy7oNFdqWIPgJInfHEKZk" Ids="JNdVq7xtKHjOBh6DjGyp0L,VeBlZ7XBZZINy8UFxtL1eo" />
           <Link Id="KLiSd3SZ3kANYw7GmWmjJn" Ids="NEXWbMGYaIJP9jeZBDlFkb,FRTS6prl6KKN2ZHycyHSo2" IsFeedback="true" />
-          <Link Id="VKoWEng1DsdMdXHY2dQiHW" Ids="FRTS6prl6KKN2ZHycyHSo2,ElZqY0ue31lPNMgFgsulFQ" />
+          <Link Id="VKoWEng1DsdMdXHY2dQiHW" Ids="FRTS6prl6KKN2ZHycyHSo2,IOiAJqofFXXPdDv0PlMMrV" />
           <Link Id="Q5fVUuSB38NORW5NxMTywh" Ids="AuhBpWRkIRZNZbp4c1zIIW,UdDib8N3hWVOZZcBepJJ6u" IsFeedback="true" />
           <Link Id="QGeioMtI8qbNfhI9arhKU0" Ids="JGTSohY0FB8M3tW29RZXEJ,AuhBpWRkIRZNZbp4c1zIIW" />
           <Link Id="FPxwQMEMdvULnpztnGHJsZ" Ids="Go0cIGdNGSrL4PMBsVguCs,UdDib8N3hWVOZZcBepJJ6u" />
@@ -1194,6 +1204,7 @@
           <Link Id="BMMqByBD7qyLYYLJQ2sha8" Ids="NaRTjrpj0VJQVJthuN8LTT,Vj1lCDCNvh8NF3oLIjZhmV" />
           <Link Id="MoA4kxMrgzfOSTZLSHu8OH" Ids="UIfI72xvygrONi4SErM1bN,E52PSJzBunUP2R7CDso6en" />
           <Link Id="A06kxssx8qsLOABZ4m8xoz" Ids="E52PSJzBunUP2R7CDso6en,VcCAF4c50Z4NuJZcg4nTMo" />
+          <Link Id="L2sQydu0JpdQQl70qkmgvS" Ids="GvRYBXO18sTP6etrU0uT88,ElZqY0ue31lPNMgFgsulFQ" />
         </Patch>
       </Node>
       <!--
